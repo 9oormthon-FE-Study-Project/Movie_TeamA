@@ -32,6 +32,6 @@ npm install -D prettier prettier-plugin-tailwindcss
 ## Eslint 설정 방법
 
 ```bash
-# 1. Eslint 패키지 설치치
+# 1. Eslint 패키지 설치
 npm install -D eslint @eslint/js eslint-config-prettier eslint-import-resolver-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-tailwindcss prettier typescript-eslint
 ```
