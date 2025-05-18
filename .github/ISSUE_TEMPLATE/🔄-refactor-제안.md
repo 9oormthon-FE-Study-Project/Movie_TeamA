@@ -2,7 +2,7 @@
 name: "\U0001F504 Refactor 제안"
 about: 리팩토링 요청 (성능 개선, 구조 변경 등)
 title: "[\U0001F504REFACTOR]"
-labels: ''
+labels: refactor
 assignees: ''
 
 ---
