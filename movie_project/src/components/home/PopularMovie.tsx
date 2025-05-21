@@ -1,5 +1,6 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { scrollToIndex } from '../../utils/scrollToIndex';
 
 import poster1 from '../../assets/poster/poster1.jpg';
 import poster2 from '../../assets/poster/poster2.jpg';
@@ -20,14 +21,14 @@ const posters: string[] = [
 
 export default function PopularMovie() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [current, setCurrent] = useState(0);
 
-  const scrollLeft = () => {
-    scrollRef.current?.scrollBy({ left: -300, behavior: 'smooth' });
+  const scrollTo = (index: number) => {
+    scrollToIndex(scrollRef.current, index, setCurrent);
   };
 
-  const scrollRight = () => {
-    scrollRef.current?.scrollBy({ left: 300, behavior: 'smooth' });
-  };
+  const handlePrev = () => scrollTo(Math.max(0, current - 1));
+  const handleNext = () => scrollTo(Math.min(posters.length - 1, current + 1));
 
   return (
     <section id='popular' className='bg-black py-6'>
@@ -37,7 +38,7 @@ export default function PopularMovie() {
         <div className='group relative'>
           {/* 왼쪽 버튼 */}
           <button
-            onClick={scrollLeft}
+            onClick={handlePrev}
             className='bg-opacity-50 absolute top-1/2 left-0 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black p-2 text-white opacity-0 transition group-hover:opacity-100'
           >
             <FaChevronLeft />
@@ -53,12 +54,9 @@ export default function PopularMovie() {
                 key={idx}
                 className='relative aspect-[2/3] w-[150px] shrink-0'
               >
-                {/* 순위 숫자 */}
                 <h2 className='absolute bottom-1 left-1 text-4xl font-extrabold text-white drop-shadow-md'>
                   {idx + 1}
                 </h2>
-
-                {/* 포스터 이미지 */}
                 <img
                   src={poster}
                   alt={`poster${idx + 1}`}
@@ -70,7 +68,7 @@ export default function PopularMovie() {
 
           {/* 오른쪽 버튼 */}
           <button
-            onClick={scrollRight}
+            onClick={handleNext}
             className='bg-opacity-50 absolute top-1/2 right-0 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black p-2 text-white opacity-0 transition group-hover:opacity-100'
           >
             <FaChevronRight />

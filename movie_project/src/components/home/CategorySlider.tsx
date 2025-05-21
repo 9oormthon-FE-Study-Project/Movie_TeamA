@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { parseCategoryName } from '../../utils/parseCategoryName';
+import { paginate } from '../../utils/pagination';
 
 const categories: string[] = [
   '액션 (Action)',
@@ -19,21 +21,7 @@ export default function CategorySlider() {
   const [page, setPage] = useState(0);
 
   const totalPages = Math.ceil(categories.length / ITEM_PER_PAGE);
-  const visibleCategories = categories.slice(
-    page * ITEM_PER_PAGE,
-    (page + 1) * ITEM_PER_PAGE
-  );
-
-  const parseCategory = (category: string) => {
-    const match = category.match(/^(.+?) \((.+?)\)$/);
-    if (!match) return category;
-    return (
-      <>
-        {match[1]}
-        <br />({match[2]})
-      </>
-    );
-  };
+  const visibleCategories = paginate(categories, page, ITEM_PER_PAGE);
 
   return (
     <section className='bg-black py-4'>
@@ -54,7 +42,7 @@ export default function CategorySlider() {
               key={idx}
               className='flex h-16 w-30 cursor-pointer items-center justify-center rounded-md bg-neutral-800 px-2 text-center text-sm text-white transition hover:bg-neutral-700'
             >
-              {parseCategory(category)}
+              {parseCategoryName(category)}
             </div>
           ))}
         </div>

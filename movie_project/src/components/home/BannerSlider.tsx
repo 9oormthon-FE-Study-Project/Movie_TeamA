@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
+import { scrollToIndex } from '../../utils/scrollToIndex';
 import banner1 from '../../assets/banner/banner1.jpg';
 import banner2 from '../../assets/banner/banner2.jpg';
 import banner3 from '../../assets/banner/banner3.jpg';
@@ -14,23 +14,11 @@ export default function BannerSlider() {
   const [current, setCurrent] = useState<number>(0);
 
   const scrollTo = (index: number) => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const width = container.clientWidth;
-    container.scrollTo({ left: index * width, behavior: 'smooth' });
-    setCurrent(index);
+    scrollToIndex(scrollRef.current, index, setCurrent);
   };
 
-  const handlePrev = () => {
-    const next = Math.max(0, current - 1);
-    scrollTo(next);
-  };
-
-  const handleNext = () => {
-    const next = Math.min(banners.length - 1, current + 1);
-    scrollTo(next);
-  };
+  const handlePrev = () => scrollTo(Math.max(0, current - 1));
+  const handleNext = () => scrollTo(Math.min(banners.length - 1, current + 1));
 
   return (
     <section className='relative mx-auto w-full max-w-4xl'>
@@ -63,7 +51,7 @@ export default function BannerSlider() {
         {banners.map((_, idx) => (
           <button
             key={idx}
-            onClick={() => scrollTo(idx)}
+            onClick={() => scrollToIndex(scrollRef.current, idx, setCurrent)}
             className={`h-2 w-2 cursor-pointer rounded-full transition-all duration-300 ${
               idx === current ? 'scale-110 bg-white' : 'bg-gray-400'
             }`}

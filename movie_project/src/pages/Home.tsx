@@ -1,10 +1,10 @@
 import { CiSearch } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
 
-import BannerSlider from './BannerSlider';
-import CategorySlider from './CategorySlider';
-import PopularMovie from './PopularMovie';
-import TopReview from './TopReview';
+import BannerSlider from '../components/home/BannerSlider';
+import CategorySlider from '../components/home/CategorySlider';
+import PopularMovie from '../components/home/PopularMovie';
+import TopReview from '../components/home/TopReview';
 
 export default function Home() {
   return (
