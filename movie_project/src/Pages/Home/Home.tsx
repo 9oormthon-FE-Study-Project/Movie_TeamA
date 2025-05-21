@@ -1,13 +1,10 @@
 import { CiSearch } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
-import { CiHeart } from 'react-icons/ci';
-import { CiStar } from 'react-icons/ci';
-
-import poster1 from '../../assets/poster/poster1.jpg';
 
 import BannerSlider from './BannerSlider';
 import CategorySlider from './CategorySlider';
 import PopularMovie from './PopularMovie';
+import TopReview from './TopReview';
 
 export default function Home() {
   return (
@@ -35,25 +32,7 @@ export default function Home() {
 
       <PopularMovie />
 
-      <section id='top-review'>
-        <div>
-          <h2>TOP 리뷰</h2>
-          <div>
-            <div>
-              <h2>닉네임</h2>
-              <img src={poster1} alt='poster1' />
-            </div>
-            <div>
-              <CiStar />
-              <p>리뷰내용 좋아요</p>
-              <div>
-                <CiHeart />
-                <span>249</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <TopReview />
     </div>
   );
 }
