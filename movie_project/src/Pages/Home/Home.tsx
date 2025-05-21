@@ -4,9 +4,10 @@ import { CiHeart } from 'react-icons/ci';
 import { CiStar } from 'react-icons/ci';
 
 import poster1 from '../../assets/poster/poster1.jpg';
-import poster2 from '../../assets/poster/poster2.jpg';
-import poster3 from '../../assets/poster/poster3.jpg';
+
 import BannerSlider from './BannerSlider';
+import CategorySlider from './CategorySlider';
+import PopularMovie from './PopularMovie';
 
 export default function Home() {
   return (
@@ -30,40 +31,9 @@ export default function Home() {
 
       <BannerSlider />
 
-      <section id='category'>
-        <div>
-          <ul>
-            <li>액션 (Action)</li>
-            <li>코미디 (Comedy)</li>
-            <li>드라마 (Drama)</li>
-            <li>애니메이션 (Animation)</li>
-            <li>로맨스 (Romance)</li>
-            <li>스릴러 / 범죄 (Thriller / Crime)</li>
-            <li>공포 / 호러 (Horror)</li>
-            <li>SF / 판타지 (SF / Fantasy)</li>
-          </ul>
-        </div>
-      </section>
+      <CategorySlider />
 
-      <section id='popular'>
-        <div>
-          <h2>현재 인기 영화</h2>
-          <div>
-            <div>
-              <h2>1</h2>
-              <img src={poster1} alt='poster1' />
-            </div>
-            <div>
-              <h2>2</h2>
-              <img src={poster2} alt='poster2' />
-            </div>
-            <div>
-              <h2>3</h2>
-              <img src={poster3} alt='poster3' />
-            </div>
-          </div>
-        </div>
-      </section>
+      <PopularMovie />
 
       <section id='top-review'>
         <div>
