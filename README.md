@@ -48,6 +48,6 @@ npm install -D eslint @eslint/js eslint-config-prettier eslint-import-resolver-n
 | `hooks/`      | **Custom Hook 함수**들을 정의하는 폴더이며, **재사용 가능한 로직이나 상태 관리 로직**을 모듈화합니다. |
 | `pages/`      | 실제 라우터로 연결되는 **페이지 단위 컴포넌트들**이 위치하며, 화면별로 나눠 구성합니다.                |
 | `store/`      | **Zustand, Recoil, Redux** 등 전역 상태 관리와 관련된 코드들을 정리해두는 폴더입니다.       |
-| `types/`      | 전역에서 사용하는 \*\*공통 타입 정의 (interface, type 등)\*\*를 모아두는 폴더입니다.        |
+| `types/`      | 전역에서 사용하는 **공통 타입 정의 (interface, type 등)**를 모아두는 폴더입니다.        |
 | `utils/`      | 날짜 포맷팅, 배열 정렬, 중복 제거 등 **어디서든 재사용 가능한 유틸리티 함수들**을 모아두는 폴더입니다.      |
 
