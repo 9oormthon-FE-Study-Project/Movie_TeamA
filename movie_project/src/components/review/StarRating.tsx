@@ -1,10 +1,14 @@
-//StarRating
-
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaRedo } from 'react-icons/fa';
 
 type Props = {
   onChange?: (score: number) => void;
+};
+
+const Star: React.FC<{ index: number; score: number }> = ({ index, score }) => {
+  if (score >= index) return <FaStar />;
+  if (score >= index - 0.5) return <FaStarHalfAlt />;
+  return <FaRegStar />;
 };
 
 const StarRating: React.FC<Props> = ({ onChange }) => {
@@ -12,35 +16,36 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
   const [selectedScore, setSelectedScore] = useState<number>(0);
   const [isFixed, setIsFixed] = useState<boolean>(false);
 
-  const handleMouseMove = (e: React.MouseEvent, index: number) => {
-    if (isFixed) return;
-    const { left, width } = (
-      e.target as HTMLDivElement
-    ).getBoundingClientRect();
-    const x = e.clientX - left;
-    const score = x < width / 2 ? index - 0.5 : index;
-    setHoverScore(score);
-  };
+  const currentScore = hoverScore ?? selectedScore;
 
-  const handleClick = (score: number) => {
-    setSelectedScore(score);
-    setIsFixed(true);
-    onChange?.(score);
-  };
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent, index: number) => {
+      if (isFixed) return;
+      const { left, width } = (
+        e.target as HTMLDivElement
+      ).getBoundingClientRect();
+      const x = e.clientX - left;
+      const score = x < width / 2 ? index - 0.5 : index;
+      setHoverScore(score);
+    },
+    [isFixed]
+  );
 
-  const handleReset = () => {
+  const handleClick = useCallback(
+    (score: number) => {
+      setSelectedScore(score);
+      setIsFixed(true);
+      onChange?.(score);
+    },
+    [onChange]
+  );
+
+  const handleReset = useCallback(() => {
     setHoverScore(null);
     setSelectedScore(0);
     setIsFixed(false);
     onChange?.(0);
-  };
-
-  const renderStar = (index: number) => {
-    const score = hoverScore ?? selectedScore;
-    if (score >= index) return <FaStar />;
-    else if (score >= index - 0.5) return <FaStarHalfAlt />;
-    else return <FaRegStar />;
-  };
+  }, [onChange]);
 
   return (
     <div className='flex items-center'>
@@ -51,9 +56,9 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
             className='flex h-8 w-8 items-center justify-center'
             onMouseMove={(e) => handleMouseMove(e, i)}
             onMouseLeave={() => !isFixed && setHoverScore(null)}
-            onClick={() => handleClick(hoverScore ?? selectedScore)}
+            onClick={() => handleClick(currentScore)}
           >
-            {renderStar(i)}
+            <Star index={i} score={currentScore} />
           </div>
         ))}
       </div>
