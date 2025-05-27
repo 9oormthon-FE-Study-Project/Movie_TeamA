@@ -1,7 +1,7 @@
-//starRating
+//StarRating
 
 import React, { useState } from 'react';
-import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaStarHalfAlt, FaRedo } from 'react-icons/fa';
 
 type Props = {
   onChange?: (score: number) => void;
@@ -14,7 +14,9 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
 
   const handleMouseMove = (e: React.MouseEvent, index: number) => {
     if (isFixed) return;
-    const { left, width } = (e.target as HTMLDivElement).getBoundingClientRect();
+    const { left, width } = (
+      e.target as HTMLDivElement
+    ).getBoundingClientRect();
     const x = e.clientX - left;
     const score = x < width / 2 ? index - 0.5 : index;
     setHoverScore(score);
@@ -42,11 +44,11 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
 
   return (
     <div className='flex items-center'>
-      <div className="flex gap-1 text-yellow-400 text-3xl cursor-pointer">
+      <div className='flex cursor-pointer gap-1 text-3xl text-yellow-400'>
         {[1, 2, 3, 4, 5].map((i) => (
           <div
             key={i}
-            className="w-8 h-8 flex items-center justify-center"
+            className='flex h-8 w-8 items-center justify-center'
             onMouseMove={(e) => handleMouseMove(e, i)}
             onMouseLeave={() => !isFixed && setHoverScore(null)}
             onClick={() => handleClick(hoverScore ?? selectedScore)}
@@ -56,11 +58,12 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
         ))}
       </div>
       <button
-        type="button"
+        type='button'
         onClick={handleReset}
-        className=" px-4 py-1 bg-gray-200 rounded text-sm text-gray-700 hover:bg-gray-300 transition"
+        className='pr-9 pl-2'
+        title='초기화'
       >
-        초기화
+        <FaRedo />
       </button>
     </div>
   );
