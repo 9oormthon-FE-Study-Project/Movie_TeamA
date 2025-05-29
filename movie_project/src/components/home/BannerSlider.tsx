@@ -46,7 +46,7 @@ const BannerSlider = () => {
   return (
     <section className='relative mx-auto w-full max-w-4xl'>
       <div className='flex overflow-hidden scroll-smooth' ref={scrollRef}>
-        {movies.map((movie, idx) => (
+        {movies.map((movie) => (
           <img
             key={movie.id}
             src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
