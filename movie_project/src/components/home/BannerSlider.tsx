@@ -11,6 +11,18 @@ const BannerSlider = () => {
   const [current, setCurrent] = useState<number>(0);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => {
+        const nextIndex = (prev + 1) % movies.length;
+        scrollToIndex(scrollRef.current, nextIndex, setCurrent);
+        return nextIndex;
+      });
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [movies]);
+
+  useEffect(() => {
     const fetchNowPlaying = async () => {
       try {
         const res = await axios.get(requests.fetchNowPlaying);
