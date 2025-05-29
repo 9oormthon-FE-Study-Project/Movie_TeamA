@@ -24,6 +24,8 @@ export const SignupPage: React.FC<{ onSwitch: () => void }> = ({ onSwitch }) => 
   };
 
   return (
-    <AuthForm title="회원가입" isSignup onSubmit={handleSubmit} onSwitch={onSwitch} />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <AuthForm title="회원가입" isSignup onSubmit={handleSubmit} onSwitch={onSwitch} />
+    </div>
   );
 };

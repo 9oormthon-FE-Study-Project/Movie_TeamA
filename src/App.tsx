@@ -9,7 +9,7 @@ const App: React.FC = () => {
   // 현재 페이지 상태: 로그인 또는 회원가입
   const [currentPage, setCurrentPage] = useState<'login' | 'signup'>('login');
   // Zustand에서 인증 상태 가져오기
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, isAuthenticated, login } = useAuthStore();
 
   console.log(import.meta.env.VITE_API_KEY);
 
@@ -18,13 +18,13 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gray-100">
       {isAuthenticated ? (
         <div className="flex items-center justify-center min-h-screen">
-          <div className="bg-white p-8 rounded-lg shadow-md min-h-screen text-center">
+          <div className="bg-black p-8 rounded-lg shadow-md min-h-screen text-center">
             <h2 className="text-2xl font-bold mb-4">환영, {user?.email}님!</h2>
-            <Button onClick={logout}>로그아웃</Button>
+            <Button onClick={login}>로그인</Button>
           </div>
         </div>
       ) : currentPage === 'login' ? (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="bg-white flex items-center justify-center min-h-screen">
           <LoginPage onSwitch={() => setCurrentPage('signup')} />
         </div>
       ) : (

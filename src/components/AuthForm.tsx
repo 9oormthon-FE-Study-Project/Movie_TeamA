@@ -33,13 +33,13 @@ export const AuthForm: React.FC<AuthFormProps> = ({
     !isSignup || value === password || '비밀번호가 일치하지 않습니다';
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-black">
+      <div className="bg-black p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">{title}</h2>
         <div className="space-y-4">
           {/* 이메일 입력 필드 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">이메일</label>
+            <label className="block text-sm font-medium text-white">이메일</label>
             <Input
               type="email"
               required
@@ -55,7 +55,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">비밀번호</label>
+            <label className="block text-sm font-medium text-white">비밀번호</label>
             <Input
               type="password"
               required
@@ -72,7 +72,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           </div>
           {isSignup && (
             <div>
-              <label className="block text-sm font-medium text-gray-700">비밀번호 확인</label>
+              <label className="block text-sm font-medium text-white">비밀번호 확인</label>
               <Input
                 type="password"
                 required
@@ -91,7 +91,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           </Button>
           {/* 페이지 전환 버튼 */}
           <Button variant="secondary" onClick={onSwitch}>
-            {isSignup ? '로그인으로 이동' : '회원가입으로 이동'}
+            <p className='text-amber-50'>{isSignup ? '로그인으로 이동' : '회원가입으로 이동'}</p>
           </Button>
         </div>
       </div>
