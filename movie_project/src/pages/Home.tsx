@@ -25,13 +25,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <BannerSlider />
-
       <CategorySlider />
-
       <PopularMovie />
-
       <TopReview />
     </div>
   );
