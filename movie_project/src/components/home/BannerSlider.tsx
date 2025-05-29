@@ -3,13 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { scrollToIndex } from '../../utils/scrollToIndex';
 import axios from '../../api/axios.tsx';
 import requests from '../../api/requests.tsx';
-
-interface Movie {
-  id: number;
-  title: string;
-  backdrop_path: string;
-  overview: string;
-}
+import { Movie } from '../../types/movie.tsx';
 
 export default function BannerSlider() {
   const scrollRef = useRef<HTMLDivElement | null>(null);

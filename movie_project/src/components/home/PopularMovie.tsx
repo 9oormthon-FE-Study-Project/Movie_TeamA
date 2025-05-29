@@ -3,14 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { scrollToIndex } from '../../utils/scrollToIndex';
 import axios from '../../api/axios';
 import requests from '../../api/requests';
-
-interface Movie {
-  id: number;
-  title: string;
-  name?: string;
-  original_name?: string;
-  poster_path: string;
-}
+import { Movie } from '../../types/movie';
 
 export default function PopularMovie() {
   const scrollRef = useRef<HTMLDivElement>(null);

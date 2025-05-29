@@ -3,19 +3,8 @@ import axios from '../../api/axios';
 import requests from '../../api/requests';
 import heart from '../../assets/icon/heart.svg';
 import star from '../../assets/icon/star.svg';
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  vote_average: number;
-}
-
-interface Review {
-  user: string;
-  comment: string;
-  likes: number;
-}
+import { Movie } from '../../types/movie';
+import { Review } from '../../types/review';
 
 export default function TopReview() {
   const [movie, setMovie] = useState<Movie | null>(null);

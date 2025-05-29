@@ -1,8 +1,4 @@
-// src/api/requests.ts
-
-interface RequestMap {
-  [key: string]: string;
-}
+import { RequestMap } from '../types/api';
 
 const requests: RequestMap = {
   // 배너용 (현재 상영 중인 영화)
