@@ -5,24 +5,24 @@ import axios from '../../api/axios';
 import requests from '../../api/requests';
 import { Movie } from '../../types/movie';
 
-export default function PopularMovie() {
+const PopularMovie = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
+    const fetchTopMovies = async () => {
+      try {
+        const response = await axios.get(requests.fetchKoreanTopMovies);
+        const top10 = response.data.results.slice(0, 10);
+        setMovies(top10);
+      } catch (error) {
+        console.error('Top 10 영화 정보를 가져오는 데 실패했습니다.', error);
+      }
+    };
+
     fetchTopMovies();
   }, []);
-
-  const fetchTopMovies = async () => {
-    try {
-      const response = await axios.get(requests.fetchKoreanTopMovies);
-      const top10 = response.data.results.slice(0, 10); // 최대 10개
-      setMovies(top10);
-    } catch (error) {
-      console.error('Top 10 영화 정보를 가져오는 데 실패했습니다.', error);
-    }
-  };
 
   const scrollTo = (index: number) => {
     scrollToIndex(scrollRef.current, index, setCurrent);
@@ -75,4 +75,6 @@ export default function PopularMovie() {
       </div>
     </section>
   );
-}
+};
+
+export default PopularMovie;

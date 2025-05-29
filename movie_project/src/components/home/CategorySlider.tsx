@@ -15,13 +15,13 @@ const categories: string[] = [
   '다큐멘터리 (Documentary)',
 ];
 
-const ITEM_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 3;
 
-export default function CategorySlider() {
+const CategorySlider = () => {
   const [page, setPage] = useState(0);
 
-  const totalPages = Math.ceil(categories.length / ITEM_PER_PAGE);
-  const visibleCategories = paginate(categories, page, ITEM_PER_PAGE);
+  const totalPages = Math.ceil(categories.length / ITEMS_PER_PAGE);
+  const visibleCategories = paginate(categories, page, ITEMS_PER_PAGE);
 
   return (
     <section className='bg-black py-4'>
@@ -58,4 +58,6 @@ export default function CategorySlider() {
       </div>
     </section>
   );
-}
+};
+
+export default CategorySlider;

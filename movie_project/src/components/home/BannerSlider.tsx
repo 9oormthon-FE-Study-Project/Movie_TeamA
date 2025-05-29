@@ -1,30 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { scrollToIndex } from '../../utils/scrollToIndex';
-import axios from '../../api/axios.tsx';
-import requests from '../../api/requests.tsx';
-import { Movie } from '../../types/movie.tsx';
+import axios from '../../api/axios';
+import requests from '../../api/requests';
+import { Movie } from '../../types/movie';
 
-export default function BannerSlider() {
+const BannerSlider = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [current, setCurrent] = useState<number>(0);
 
   useEffect(() => {
+    const fetchNowPlaying = async () => {
+      try {
+        const res = await axios.get(requests.fetchNowPlaying);
+        const limitedMovies = res.data.results.slice(0, 5);
+        setMovies(limitedMovies);
+      } catch (err) {
+        console.error('배너 데이터를 불러오는 데 실패했습니다.', err);
+      }
+    };
+
     fetchNowPlaying();
   }, []);
-
-  const fetchNowPlaying = async () => {
-    try {
-      const res = await axios.get(requests.fetchNowPlaying);
-
-      // 최대 5개까지만 사용
-      const limitedMovies = res.data.results.slice(0, 5);
-      setMovies(limitedMovies);
-    } catch (err) {
-      console.error('배너 데이터를 불러오는 데 실패했습니다.', err);
-    }
-  };
 
   const scrollTo = (index: number) => {
     scrollToIndex(scrollRef.current, index, setCurrent);
@@ -73,4 +71,6 @@ export default function BannerSlider() {
       </div>
     </section>
   );
-}
+};
+
+export default BannerSlider;
