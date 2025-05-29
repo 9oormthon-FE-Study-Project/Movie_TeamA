@@ -11,9 +11,6 @@ const App: React.FC = () => {
   // Zustand에서 인증 상태 가져오기
   const { user, isAuthenticated } = useAuthStore();
 
-  console.log(import.meta.env.VITE_API_KEY);
-
-
   return (
     <div className="min-h-screen bg-gray-100">
       {isAuthenticated ? (

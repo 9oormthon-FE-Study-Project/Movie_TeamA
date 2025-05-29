@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthForm } from '../components/Login/AuthForm';
+import { AuthForm } from '.../components/Login/AuthForm';
 import type { AuthFormData } from '../types/auth';
 import { useAuthStore } from '../store/authStore';
 // import { signup } from '../utils/api';
@@ -10,7 +10,6 @@ export const SignupPage: React.FC<{ onSwitch: () => void }> = ({ onSwitch }) => 
   // 회원가입 폼 제출 핸들러
   const handleSubmit = async (data: AuthFormData) => {
     // API 호출 부분 주석 처리 
-    // API 연결 전 테스트용
     setUser({ email: data.email });
     console.log('회원가입 시도:', data);
   };

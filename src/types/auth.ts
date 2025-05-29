@@ -1,7 +1,14 @@
 export interface AuthFormData {
   email: string;
   password: string;
+  nickname?: string;
+  birthDate?: string;
   confirmPassword?: string;
-  nickname: string;
-  birthDate: string;
+}
+
+export interface AuthResponse {
+  user: {
+    email: string;
+  };
+  token?: string;
 }
