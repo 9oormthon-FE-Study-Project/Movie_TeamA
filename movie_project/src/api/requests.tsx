@@ -1,4 +1,10 @@
-const requests = {
+// src/api/requests.ts
+
+interface RequestMap {
+  [key: string]: string;
+}
+
+const requests: RequestMap = {
   // 배너용 (현재 상영 중인 영화)
   fetchNowPlaying: '/movie/now_playing',
 
@@ -9,5 +15,7 @@ const requests = {
   fetchTrending: '/trending/all/week',
 
   // 한국 TOP 10 영화 (트렌딩 영화 중 국가 필터)
-  fetchKoreanTopMovies: '/trending/movie/week', // 추가 필터 필요시 백엔드에서 처리
+  fetchKoreanTopMovies: '/trending/movie/week',
 };
+
+export default requests;
