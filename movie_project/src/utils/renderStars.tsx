@@ -1,4 +1,4 @@
-import star from '../../assets/icon/star.svg';
+import star from '../assets/icon/star.svg';
 
 export const renderStars = (vote: number) => {
   const starCount = Math.round(vote / 2);
