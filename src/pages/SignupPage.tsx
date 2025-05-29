@@ -9,16 +9,8 @@ export const SignupPage: React.FC<{ onSwitch: () => void }> = ({ onSwitch }) => 
 
   // 회원가입 폼 제출 핸들러
   const handleSubmit = async (data: AuthFormData) => {
-    // API 호출 부분 주석 처리 (미구현)
-    // try {
-    //   const response = await signup({ email: data.email, password: data.password });
-    //   setUser({ email: data.email });
-    //   console.log('회원가입 성공:', response.data);
-    // } catch (error) {
-    //   console.error('회원가입 실패:', error);
-    // }
-
-    // 임시로 상태만 업데이트 (API 연결 전 테스트용)
+    // API 호출 부분 주석 처리 
+    // API 연결 전 테스트용
     setUser({ email: data.email });
     console.log('회원가입 시도:', data);
   };

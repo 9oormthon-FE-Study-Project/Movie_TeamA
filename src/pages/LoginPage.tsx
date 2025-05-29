@@ -9,15 +9,7 @@ export const LoginPage: React.FC<{ onSwitch: () => void }> = ({ onSwitch }) => {
 
   // 로그인 폼 제출 핸들러
   const handleSubmit = async (data: AuthFormData) => {
-    // API 호출 부분 주석 처리 (미구현)
-    // try {
-    //   const response = await login({ email: data.email, password: data.password });
-    //   setUser({ email: data.email });
-    //   console.log('로그인 성공:', response.data);
-    // } catch (error) {
-    //   console.error('로그인 실패:', error);
-    // }
-
+    // API 호출
     // 임시로 상태만 업데이트 (API 연결 전 테스트용)
     setUser({ email: data.email });
     console.log('로그인 시도:', data);

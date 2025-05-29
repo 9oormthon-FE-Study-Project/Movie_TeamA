@@ -12,18 +12,20 @@ interface AuthFormProps {
 }
 
 // 공통 인증 폼 컴포넌트: 로그인과 회원가입에서 재사용
-export const AuthForm: React.FC<AuthFormProps> = ({
+export const AuthForm = ({
   title,
   isSignup,
   onSubmit,
   onSwitch,
-}) => {
+}: AuthFormProps) => {
   // react-hook-form으로 폼 상태 관리 및 유효성 검사
   const { register, handleSubmit, formState: { errors }, watch } = useForm<AuthFormData>({
     defaultValues: {
       email: '',
       password: '',
       confirmPassword: isSignup ? '' : undefined,
+      nickname: '',
+      birthDate: '',
     },
   });
 
@@ -54,6 +56,40 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
           </div>
+
+          {isSignup && (
+            <>
+              <div>
+                <label className="block text-sm font-medium text-white">닉네임</label>
+                <Input
+                  type="text"
+                  required
+                  register={register('nickname', {
+                    required: '닉네임을 입력하세요',
+                    minLength: {
+                      value: 2,
+                      message: '닉네임은 최소 2자 이상이어야 합니다',
+                    },
+                  })}
+                  placeholder="닉네임을 입력하세요"
+                />
+                {errors.nickname && <p className="text-red-500 text-sm">{errors.nickname.message}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white">생년월일</label>
+                <Input
+                  type="date"
+                  required
+                  register={register('birthDate', {
+                    required: '생년월일을 입력하세요',
+                  })}
+                />
+                {errors.birthDate && <p className="text-red-500 text-sm">{errors.birthDate.message}</p>}
+              </div>
+            </>
+          )}
+
           <div>
             <label className="block text-sm font-medium text-white">비밀번호</label>
             <Input
@@ -62,8 +98,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({
               register={register('password', {
                 required: '비밀번호를 입력하세요',
                 minLength: {
-                  value: 6,
-                  message: '비밀번호는 최소 6자 이상이어야 합니다',
+                  value: 4,
+                  message: '비밀번호는 최소 4자 이상이어야 합니다',
                 },
               })}
               placeholder="비밀번호를 입력하세요"
