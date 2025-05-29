@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
-import { Button } from './common/Button';
-import { Input } from './common/Input';
-import type { AuthFormData } from '../types/auth'; 
+import { Button } from './Button';
+import { Input } from './Input';
+import type { AuthFormData } from '../../types/auth'; 
 
 interface AuthFormProps {
   title: string;

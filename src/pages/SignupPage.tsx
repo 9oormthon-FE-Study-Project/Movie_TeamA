@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthForm } from '../components/AuthForm';
+import { AuthForm } from '../components/Login/AuthForm';
 import type { AuthFormData } from '../types/auth';
 import { useAuthStore } from '../store/authStore';
 // import { signup } from '../utils/api';

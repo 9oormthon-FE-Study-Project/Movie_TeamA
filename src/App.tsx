@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
 import { useAuthStore } from './store/authStore';
-import { Button } from './components/common/Button';
+import { Button } from './components/Login/Button';
 
 // 최상위 컴포넌트: 인증 상태에 따라 화면 전환
 const App: React.FC = () => {

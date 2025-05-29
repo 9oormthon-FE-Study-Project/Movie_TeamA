@@ -1,18 +1,11 @@
 import React from 'react';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: 'button' | 'submit';
-  variant?: 'primary' | 'secondary';
-}
-
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
   children,
   onClick,
   type = 'button',
   variant = 'primary',
-}) => {
+} :ButtonProps) => {
   const baseStyles = 'px-4 py-2 rounded-md font-semibold focus:outline-none';
   const variantStyles =
     variant === 'primary'

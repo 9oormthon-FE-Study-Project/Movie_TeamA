@@ -6,13 +6,13 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 // 재사용 가능한 입력 컴포넌트: react-hook-form과 함께 사용 가능
-export const Input: React.FC<InputProps> = ({
+export const Input = ({
   type,
   placeholder,
   required,
   register,
   ...props
-}) => {
+}: InputProps) => {
   return (
     <input
       type={type}
