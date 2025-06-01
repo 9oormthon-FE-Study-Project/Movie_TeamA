@@ -13,11 +13,7 @@ const Review = () => {
   return (
     <div>
       <Poster />
-
-      {/* 줄거리 */}
-      <section className='my-8 text-xs'>
-        <Plot />
-      </section>
+      <Plot />
 
       {/* 평점 */}
       <section className='my-8 ml-5'>
