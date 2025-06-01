@@ -1,6 +1,4 @@
-//BestReviewSlide
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -11,21 +9,21 @@ import {
 
 const bestReviews = [
   {
-    nickname: '민주',
+    user: '민주',
     rating: 4.5,
-    content: '완전 재밌게 봤어요! 강추!dddddddddddddddddddddddddd',
+    comment: '완전 재밌게 봤어요! 강추!dddddddddddddddddddddddddd',
     likes: 156,
   },
   {
-    nickname: '민주',
+    user: '민주',
     rating: 5,
-    content: '연기가 살아있어요. 몰입도 최고!',
+    comment: '연기가 살아있어요. 몰입도 최고!',
     likes: 123,
   },
   {
-    nickname: '민주',
+    user: '민주',
     rating: 4,
-    content: '스토리가 신선해요. 다음 작품도 기대!',
+    comment: '스토리가 신선해요. 다음 작품도 기대!',
     likes: 96,
   },
 ];
@@ -49,6 +47,14 @@ const BestReviewSlide: React.FC = () => {
   const handlePrev = () => setCurrent((prev) => (prev - 1 + len) % len);
   const handleNext = () => setCurrent((prev) => (prev + 1) % len);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % len);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [len]);
+
   return (
     <div className='my-8'>
       <div className='mb-3 ml-5 text-xl font-bold'>베스트 리뷰</div>
@@ -57,20 +63,17 @@ const BestReviewSlide: React.FC = () => {
         <button onClick={handlePrev} className='mr-2 rounded-full p-2 text-xl'>
           <FaChevronLeft />
         </button>
+
         {/* 슬라이드 내용 */}
         <div className='flex-1'>
           <div className='h-50 rounded-lg border-2 border-gray-300 px-3 pt-4 shadow-md'>
             <div className='mb-2 flex items-center gap-3'>
-              <span className='font-semibold'>
-                {bestReviews[current].nickname}
-              </span>
+              <span className='font-semibold'>{bestReviews[current].user}</span>
               <span>{renderStars(bestReviews[current].rating)}</span>
             </div>
             <hr className='my-2' />
             <div className='mb-2'>
-              <p className='text-xs text-white'>
-                {bestReviews[current].content}
-              </p>
+              <p className='text-xs'>{bestReviews[current].comment}</p>
             </div>
             <hr className='my-2' />
             <div>
@@ -78,17 +81,19 @@ const BestReviewSlide: React.FC = () => {
             </div>
           </div>
         </div>
+
         {/* 우 버튼 */}
         <button onClick={handleNext} className='ml-2 rounded-full p-2 text-xl'>
           <FaChevronRight />
         </button>
       </div>
-      {/* 아래 점(dot) 네비게이터 */}
+
+      {/* 점 네비게이터 */}
       <div className='mt-3 flex justify-center gap-2'>
         {bestReviews.map((_, idx) => (
           <span
             key={idx}
-            className={`inline-block h-2 w-2 rounded-full ${idx === current ? 'bg-blue-600' : 'bg-gray-300'}`}
+            className={`inline-block h-2 w-2 rounded-full transition-all duration-300 ${idx === current ? 'scale-110 bg-blue-600' : 'bg-gray-300'}`}
           />
         ))}
       </div>

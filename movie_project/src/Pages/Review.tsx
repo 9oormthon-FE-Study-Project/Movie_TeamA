@@ -16,13 +16,8 @@ const Review = () => {
       <Poster />
       <Plot />
       <StarAverage />
-      {/* 리뷰 작성 */}
       <WriteReview />
-
-      {/* 베스트 리뷰 */}
-      <section>
-        <BestReviewSlide />
-      </section>
+      <BestReviewSlide />
 
       {/* 전체 리뷰 */}
       <section>
