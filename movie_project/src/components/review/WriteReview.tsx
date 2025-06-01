@@ -1,9 +1,8 @@
-// components/review/WriteReview.tsx
 import { useState } from 'react';
 import StarRating from './StarRating';
 
-export default function WriteReview() {
-  const [reviewInput, setReviewInput] = useState<string>('');
+const WriteReview = () => {
+  const [reviewInput, setReviewInput] = useState('');
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,4 +36,6 @@ export default function WriteReview() {
       </form>
     </section>
   );
-}
+};
+
+export default WriteReview;

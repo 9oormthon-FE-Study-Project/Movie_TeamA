@@ -8,7 +8,7 @@ import AllReviewDropdown from '../components/review/AllReviewDropdown';
 import AllReview from '../components/review/AllReview';
 import WriteReview from '../components/review/WriteReview';
 
-export default function Review() {
+const Review = () => {
   return (
     <div className='bg-black text-white'>
       {/* 포스터 배경 */}
@@ -68,4 +68,6 @@ export default function Review() {
       </section>
     </div>
   );
-}
+};
+
+export default Review;

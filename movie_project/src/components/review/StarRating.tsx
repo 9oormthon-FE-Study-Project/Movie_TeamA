@@ -5,7 +5,9 @@ type Props = {
   onChange?: (score: number) => void;
 };
 
-const Star: React.FC<{ index: number; score: number }> = ({ index, score }) => {
+type StarProps = { index: number; score: number };
+
+const Star = ({ index, score }: StarProps) => {
   if (score >= index) return <FaStar />;
   if (score >= index - 0.5) return <FaStarHalfAlt />;
   return <FaRegStar />;
@@ -14,7 +16,7 @@ const Star: React.FC<{ index: number; score: number }> = ({ index, score }) => {
 const StarRating: React.FC<Props> = ({ onChange }) => {
   const [hoverScore, setHoverScore] = useState<number | null>(null);
   const [selectedScore, setSelectedScore] = useState<number>(0);
-  const [isFixed, setIsFixed] = useState<boolean>(false);
+  const [isFixed, setIsFixed] = useState(false);
 
   const currentScore = hoverScore ?? selectedScore;
 
