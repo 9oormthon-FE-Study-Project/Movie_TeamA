@@ -2,11 +2,17 @@ import { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import requests from '../../api/requests';
 import { Movie } from '../../types/movie';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 
 interface MovieResponse {
   results: Movie[];
 }
+
+const Star = ({ index, score }: { index: number; score: number }) => {
+  if (score >= index) return <FaStar />;
+  if (score >= index - 0.5) return <FaStarHalfAlt />;
+  return <FaRegStar />;
+};
 
 const StarAverage = () => {
   const [rating, setRating] = useState<number | null>(null);
@@ -16,7 +22,7 @@ const StarAverage = () => {
       try {
         const res = await axios.get<MovieResponse>(requests.fetchNowPlaying);
         const vote = res.data.results[0]?.vote_average;
-        setRating(typeof vote === 'number' ? vote : null);
+        setRating(typeof vote === 'number' ? vote / 2 : null); // 10점 만점을 5점으로 환산
       } catch (err) {
         console.error('별점 불러오기 실패:', err);
         setRating(null);
@@ -37,8 +43,13 @@ const StarAverage = () => {
   return (
     <section className='my-8 ml-5'>
       <h1 className='text-xl font-bold'>평점</h1>
-      <div className='flex items-center justify-center gap-1 text-3xl'>
-        <h1 className='m-3 text-lg font-bold'>{rating.toFixed(1)} / 10</h1>
+      <div className='flex items-center justify-center gap-1'>
+        <div className='flex items-center justify-center gap-1 text-3xl text-yellow-400'>
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Star key={i} index={i} score={rating} />
+          ))}
+        </div>
+        <span className='ml-3 text-lg font-bold'>{rating.toFixed(1)} / 5</span>
       </div>
     </section>
   );

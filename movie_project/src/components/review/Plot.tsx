@@ -34,6 +34,7 @@ const Plot = () => {
 
   return (
     <div className='mx-4 my-8 text-xs'>
+      <h1 className='my-2 text-xl font-bold'>줄거리</h1>
       <p className='mb-2'>{displayedText}</p>
       {plot.length > textLimit.current && (
         <button
