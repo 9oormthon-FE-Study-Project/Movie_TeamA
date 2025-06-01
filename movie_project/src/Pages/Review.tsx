@@ -41,11 +41,9 @@ export default function Review() {
       <section className='my-8 ml-5'>
         <h1 className='text-xl font-bold'>평점</h1>
         <div className='flex items-center justify-center gap-1 text-3xl'>
-          <FaStar className='text-yellow-400' />
-          <FaStar className='text-yellow-400' />
-          <FaStar className='text-yellow-400' />
-          <FaStar className='text-yellow-400' />
-          <FaStar className='text-yellow-400' />
+          {Array.from({ length: 5 }).map((_, i) => (
+            <FaStar key={i} className='text-yellow-400' />
+          ))}
           <h1 className='m-3 font-bold'>4.8</h1>
         </div>
       </section>
@@ -64,10 +62,9 @@ export default function Review() {
           <h1 className='text-xl font-bold'>전체 리뷰</h1>
           <AllReviewDropdown />
         </div>
-        <AllReview />
-        <AllReview />
-        <AllReview />
-        <AllReview />
+        {Array.from({ length: 4 }).map((_, i) => (
+          <AllReview key={i} />
+        ))}
       </section>
     </div>
   );

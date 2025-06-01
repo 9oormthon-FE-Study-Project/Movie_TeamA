@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
 const AllReviewDropdown = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const options = ['최신순', '오래된순', '인기순', '평점높은순', '평점낮은순'];
 
-  const onToggle = () => setIsOpen(!isOpen);
+  const onToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   const onOptionClicked = (value: string) => {
-    console.log('선택한 정렬:', value);
     setIsOpen(false);
   };
 
