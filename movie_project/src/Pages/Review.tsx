@@ -7,30 +7,12 @@ import BestReviewSlide from '../components/review/BestReviewSlide';
 import AllReviewDropdown from '../components/review/AllReviewDropdown';
 import AllReview from '../components/review/AllReview';
 import WriteReview from '../components/review/WriteReview';
+import Poster from '../components/review/Poster';
 
 const Review = () => {
   return (
-    <div className='bg-black text-white'>
-      {/* 포스터 배경 */}
-      <section
-        className='relative h-100 bg-black'
-        style={{
-          backgroundImage: `url(${poster})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className='absolute inset-0 z-0 bg-black/60' />
-        <div className='absolute bottom-0 left-0 z-10'>
-          <div className='mb-5 font-bold text-white'>
-            <h1 className='ml-4 text-3xl'>릴로 & 스티치</h1>
-            <div className='ml-5 flex items-center gap-2'>
-              <p className='text-1xl'>2025.05.21</p>
-              <p className='text-1xl'>애니메이션</p>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div>
+      <Poster />
 
       {/* 줄거리 */}
       <section className='my-8 text-xs'>
