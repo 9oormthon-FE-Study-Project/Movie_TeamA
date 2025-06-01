@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import StarRating from './StarRating';
+import { ReviewData } from '../../pages/Review';
 
-const WriteReview = () => {
+type Props = {
+  onSubmitReview: (data: ReviewData) => void;
+};
+
+const WriteReview = ({ onSubmitReview }: Props) => {
   const [reviewInput, setReviewInput] = useState('');
+  const [selectedRating, setSelectedRating] = useState(0);
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -10,8 +16,9 @@ const WriteReview = () => {
       alert('리뷰를 입력해주세요.');
       return;
     }
-    alert('리뷰가 등록되었습니다!');
+    onSubmitReview({ content: reviewInput.trim(), rating: selectedRating });
     setReviewInput('');
+    setSelectedRating(0);
   };
 
   return (
@@ -27,7 +34,7 @@ const WriteReview = () => {
           className='h-40 w-[90%] rounded-lg border border-2 border-gray-300 px-3 py-2 focus:outline-none'
         />
         <div className='mt-1 flex items-center justify-between gap-2'>
-          <StarRating />
+          <StarRating onChange={(score) => setSelectedRating(score)} />
           <button type='submit' className='ml-10 font-bold'>
             리뷰 등록
           </button>

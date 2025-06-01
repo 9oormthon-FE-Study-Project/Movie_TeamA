@@ -5,9 +5,7 @@ type Props = {
   onChange?: (score: number) => void;
 };
 
-type StarProps = { index: number; score: number };
-
-const Star = ({ index, score }: StarProps) => {
+const Star: React.FC<{ index: number; score: number }> = ({ index, score }) => {
   if (score >= index) return <FaStar />;
   if (score >= index - 0.5) return <FaStarHalfAlt />;
   return <FaRegStar />;
