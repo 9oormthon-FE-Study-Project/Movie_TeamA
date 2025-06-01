@@ -8,24 +8,14 @@ import AllReviewDropdown from '../components/review/AllReviewDropdown';
 import AllReview from '../components/review/AllReview';
 import WriteReview from '../components/review/WriteReview';
 import Poster from '../components/review/Poster';
+import StarAverage from '../components/review/StarAverage';
 
 const Review = () => {
   return (
     <div>
       <Poster />
       <Plot />
-
-      {/* 평점 */}
-      <section className='my-8 ml-5'>
-        <h1 className='text-xl font-bold'>평점</h1>
-        <div className='flex items-center justify-center gap-1 text-3xl'>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <FaStar key={i} className='text-yellow-400' />
-          ))}
-          <h1 className='m-3 font-bold'>4.8</h1>
-        </div>
-      </section>
-
+      <StarAverage />
       {/* 리뷰 작성 */}
       <WriteReview />
 
