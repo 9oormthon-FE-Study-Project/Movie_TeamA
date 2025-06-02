@@ -17,9 +17,6 @@ const renderStars = (rating: number) => {
   return stars;
 };
 
-const today = new Date();
-const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일 ${today.getHours()}시 ${today.getMinutes()}분`;
-
 const AllReview = ({ content, rating }: Props) => {
   return (
     <div className='flex-1'>
@@ -35,9 +32,6 @@ const AllReview = ({ content, rating }: Props) => {
         <hr className='my-2' />
         <div>
           <p className='ml-3 text-sm text-gray-500'>공감 수 0</p>
-        </div>
-        <div>
-          <p className='ml-3 text-sm text-gray-500'>{formattedDate}</p>
         </div>
       </div>
     </div>
