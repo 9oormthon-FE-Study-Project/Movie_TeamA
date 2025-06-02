@@ -26,17 +26,14 @@ const Review = () => {
       <StarAverage />
       <WriteReview onSubmitReview={handleNewReview} />
       <BestReviewSlide />
-
-      {/* 전체 리뷰 */}
-      <section>
-        <div className='z-10 mx-5 mb-5 flex items-center justify-between'>
-          <h1 className='text-xl font-bold'>전체 리뷰</h1>
-          <AllReviewDropdown />
-        </div>
+      <div className='mt-4 flex items-center justify-between px-4'>
+        <h1 className='z-10 mx-2 mb-5 text-xl font-bold'>전체 리뷰</h1>
+      </div>
+      <div>
         {reviews.map((review, i) => (
           <AllReview key={i} content={review.content} rating={review.rating} />
         ))}
-      </section>
+      </div>
     </div>
   );
 };

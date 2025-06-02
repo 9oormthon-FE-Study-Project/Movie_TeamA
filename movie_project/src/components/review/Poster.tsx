@@ -16,11 +16,10 @@ const Poster = () => {
       try {
         const res = await axios.get<MovieResponse>(requests.fetchNowPlaying);
         const movies = res.data.results;
-        console.log('✅ 요청 응답 확인:', res.data);
 
-        setMovie(movies[0]); // 첫 번째 영화로 설정
+        setMovie(movies[0]);
       } catch (err) {
-        console.error('포스터 불러오기 실패:', err);
+        console.error('영화 정보를 불러오는데 실패했습니다.', err);
       }
     };
 

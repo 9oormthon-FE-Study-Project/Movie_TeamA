@@ -20,11 +20,12 @@ const StarAverage = () => {
   useEffect(() => {
     const fetchRating = async () => {
       try {
-        const res = await axios.get<MovieResponse>(requests.fetchNowPlaying);
-        const vote = res.data.results[0]?.vote_average;
-        setRating(typeof vote === 'number' ? vote / 2 : null); // 10점 만점을 5점으로 환산
+        const response = await axios.get<MovieResponse>(
+          requests.fetchNowPlaying
+        );
+        const vote = response.data.results[0]?.vote_average;
+        setRating(typeof vote === 'number' ? vote / 2 : null);
       } catch (err) {
-        console.error('별점 불러오기 실패:', err);
         setRating(null);
       }
     };
@@ -45,8 +46,8 @@ const StarAverage = () => {
       <h1 className='text-xl font-bold'>평점</h1>
       <div className='flex items-center justify-center gap-1'>
         <div className='flex items-center justify-center gap-1 text-3xl text-yellow-400'>
-          {[1, 2, 3, 4, 5].map((i) => (
-            <Star key={i} index={i} score={rating} />
+          {Array.from({ length: 5 }, (_, i) => (
+            <Star key={i} index={i + 1} score={rating} />
           ))}
         </div>
         <span className='ml-3 text-lg font-bold'>{rating.toFixed(1)} / 5</span>
