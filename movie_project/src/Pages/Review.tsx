@@ -20,7 +20,7 @@ const Review = () => {
   };
 
   return (
-    <div>
+    <div className='bg-black text-white'>
       <Poster />
       <Plot />
       <StarAverage />

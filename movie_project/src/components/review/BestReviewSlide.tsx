@@ -66,7 +66,7 @@ const BestReviewSlide: React.FC = () => {
 
         {/* 슬라이드 내용 */}
         <div className='flex-1'>
-          <div className='h-50 rounded-lg border-2 border-gray-300 px-3 pt-4 shadow-md'>
+          <div className='b h-50 rounded-lg border-2 border-gray-300 bg-white px-3 pt-4 text-black shadow-md'>
             <div className='mb-2 flex items-center gap-3'>
               <span className='font-semibold'>{bestReviews[current].user}</span>
               <span>{renderStars(bestReviews[current].rating)}</span>

@@ -1,22 +1,30 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaRedo } from 'react-icons/fa';
 
 type Props = {
   onChange?: (score: number) => void;
+  score?: number; // 외부에서 받은 점수 (초기값 또는 리셋값)
 };
 
-const Star: React.FC<{ index: number; score: number }> = ({ index, score }) => {
+const Star = ({ index, score }: { index: number; score: number }) => {
   if (score >= index) return <FaStar />;
   if (score >= index - 0.5) return <FaStarHalfAlt />;
   return <FaRegStar />;
 };
 
-const StarRating: React.FC<Props> = ({ onChange }) => {
+function StarRating({ onChange, score = 0 }: Props) {
   const [hoverScore, setHoverScore] = useState<number | null>(null);
-  const [selectedScore, setSelectedScore] = useState<number>(0);
-  const [isFixed, setIsFixed] = useState(false);
+  const [selectedScore, setSelectedScore] = useState<number>(score);
+  const [isFixed, setIsFixed] = useState<boolean>(false);
 
   const currentScore = hoverScore ?? selectedScore;
+
+  // 외부에서 score가 바뀌었을 때 내부 상태를 초기화
+  useEffect(() => {
+    setSelectedScore(score);
+    setHoverScore(null);
+    setIsFixed(false);
+  }, [score]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent, index: number) => {
@@ -25,8 +33,8 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
         e.target as HTMLDivElement
       ).getBoundingClientRect();
       const x = e.clientX - left;
-      const score = x < width / 2 ? index - 0.5 : index;
-      setHoverScore(score);
+      const hoveredScore = x < width / 2 ? index - 0.5 : index;
+      setHoverScore(hoveredScore);
     },
     [isFixed]
   );
@@ -41,10 +49,7 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
   );
 
   const handleReset = useCallback(() => {
-    setHoverScore(null);
-    setSelectedScore(0);
-    setIsFixed(false);
-    onChange?.(0);
+    onChange?.(0); // 부모에서 score 상태를 관리하고 있으므로 이걸로 리셋
   }, [onChange]);
 
   return (
@@ -72,6 +77,6 @@ const StarRating: React.FC<Props> = ({ onChange }) => {
       </button>
     </div>
   );
-};
+}
 
 export default StarRating;

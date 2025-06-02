@@ -15,8 +15,13 @@ const WriteReview = ({ onSubmitReview }: Props) => {
     if (!reviewInput.trim()) {
       alert('리뷰를 입력해주세요.');
       return;
+    } else {
+      alert('리뷰가 등록되었습니다.');
     }
-    onSubmitReview({ content: reviewInput.trim(), rating: selectedRating });
+    onSubmitReview({
+      content: reviewInput.trim(),
+      rating: selectedRating,
+    });
     setReviewInput('');
     setSelectedRating(0);
   };
@@ -31,10 +36,13 @@ const WriteReview = ({ onSubmitReview }: Props) => {
         <textarea
           value={reviewInput}
           onChange={(e) => setReviewInput(e.target.value)}
-          className='h-40 w-[90%] rounded-lg border border-2 border-gray-300 px-3 py-2 focus:outline-none'
+          className='h-40 w-[90%] rounded-lg border border-2 border-gray-300 bg-white px-3 py-2 text-black focus:outline-none'
         />
         <div className='mt-1 flex items-center justify-between gap-2'>
-          <StarRating onChange={(score) => setSelectedRating(score)} />
+          <StarRating
+            score={selectedRating}
+            onChange={(score) => setSelectedRating(score)}
+          />
           <button type='submit' className='ml-10 font-bold'>
             리뷰 등록
           </button>
