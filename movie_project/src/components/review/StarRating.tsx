@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, MouseEvent } from 'react';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaRedo } from 'react-icons/fa';
 
-type Props = {
+interface Props {
   onChange?: (score: number) => void;
   score?: number;
-};
+}
 
 const Star = ({ index, score }: { index: number; score: number }) => {
   if (score >= index) return <FaStar />;
@@ -15,7 +15,7 @@ const Star = ({ index, score }: { index: number; score: number }) => {
 const StarRating = ({ onChange, score = 0 }: Props) => {
   const [hoverScore, setHoverScore] = useState<number | null>(null);
   const [selectedScore, setSelectedScore] = useState<number>(score);
-  const [isFixed, setIsFixed] = useState<boolean>(false);
+  const [isFixed, setIsFixed] = useState(false);
 
   const currentScore = hoverScore ?? selectedScore;
 
@@ -26,12 +26,9 @@ const StarRating = ({ onChange, score = 0 }: Props) => {
   }, [score]);
 
   const handleMouseMove = useCallback(
-    (e: React.MouseEvent, index: number) => {
+    (e: MouseEvent<HTMLDivElement>, index: number) => {
       if (isFixed) return;
-
-      const { left, width } = (
-        e.target as HTMLDivElement
-      ).getBoundingClientRect();
+      const { left, width } = e.currentTarget.getBoundingClientRect();
       const x = e.clientX - left;
       const newScore = x < width / 2 ? index - 0.5 : index;
       setHoverScore(newScore);
@@ -40,15 +37,18 @@ const StarRating = ({ onChange, score = 0 }: Props) => {
   );
 
   const handleClick = useCallback(
-    (score: number) => {
-      setSelectedScore(score);
+    (scoreValue: number) => {
+      setSelectedScore(scoreValue);
       setIsFixed(true);
-      onChange?.(score);
+      onChange?.(scoreValue);
     },
     [onChange]
   );
 
   const handleReset = useCallback(() => {
+    setSelectedScore(0);
+    setHoverScore(null);
+    setIsFixed(false);
     onChange?.(0);
   }, [onChange]);
 
@@ -70,7 +70,7 @@ const StarRating = ({ onChange, score = 0 }: Props) => {
       <button
         type='button'
         onClick={handleReset}
-        className='pr-9 pl-2'
+        className='px-2'
         title='초기화'
       >
         <FaRedo />

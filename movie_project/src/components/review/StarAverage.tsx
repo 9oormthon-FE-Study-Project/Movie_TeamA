@@ -3,10 +3,7 @@ import axios from '../../api/axios';
 import requests from '../../api/requests';
 import { Movie } from '../../types/movie';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
-
-interface MovieResponse {
-  results: Movie[];
-}
+import { MovieResponse } from '../../types/movieResponse';
 
 const Star = ({ index, score }: { index: number; score: number }) => {
   if (score >= index) return <FaStar />;

@@ -1,51 +1,48 @@
-// src/components/review/BestReviewSlide.tsx
-import React, { useState, useEffect } from 'react';
-import {
-  FaChevronLeft,
-  FaChevronRight,
-  FaStar,
-  FaStarHalfAlt,
-  FaRegStar,
-} from 'react-icons/fa';
-import { ReviewDataWithLikes } from '../../pages/Review'; // 경로 주의
+import { useState, useEffect, useMemo } from 'react';
+import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
+import { ReviewDataWithLikes } from '../../types/review';
+import StarDisplay from './StarDisplay';
 
-type Props = {
+interface Props {
   reviews: ReviewDataWithLikes[];
-};
+  onLike?: (index: number) => void;
+}
 
-const renderStars = (rating: number) => {
-  const stars = [];
-  for (let i = 1; i <= 5; i++) {
-    if (rating >= i) {
-      stars.push(<FaStar key={i} className='inline text-yellow-400' />);
-    } else if (rating >= i - 0.5) {
-      stars.push(<FaStarHalfAlt key={i} className='inline text-yellow-400' />);
-    } else {
-      stars.push(<FaRegStar key={i} className='inline text-yellow-400' />);
-    }
-  }
-  return stars;
-};
+const BestReviewSlide = ({ reviews, onLike }: Props) => {
+  const top3 = useMemo(() => {
+    return [...reviews].sort((a, b) => b.likes - a.likes).slice(0, 3);
+  }, [reviews]);
 
-const BestReviewSlide = ({ reviews }: Props) => {
-  const sorted = [...reviews].sort((a, b) => b.likes - a.likes);
-  const top3 = sorted.slice(0, 3);
-
-  const [current, setCurrent] = useState(0);
   const len = top3.length;
+  const [current, setCurrent] = useState(0);
 
-  const handlePrev = () => setCurrent((prev) => (prev - 1 + len) % len);
-  const handleNext = () => setCurrent((prev) => (prev + 1) % len);
+  const handlePrev = () => {
+    setCurrent((prev) => (prev - 1 + len) % len);
+  };
+  const handleNext = () => {
+    setCurrent((prev) => (prev + 1) % len);
+  };
 
   useEffect(() => {
     if (len === 0) return;
-    const interval = setInterval(() => {
+    const intervalId = setInterval(() => {
       setCurrent((prev) => (prev + 1) % len);
     }, 4000);
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalId);
   }, [len]);
 
+  useEffect(() => {
+    if (current >= len) {
+      setCurrent(0);
+    }
+  }, [len, current]);
+
   if (len === 0) return null;
+
+  const { content, rating, likes } = top3[current];
+  const originalIndex = reviews.findIndex(
+    (r) => r.content === content && r.rating === rating && r.likes === likes
+  );
 
   return (
     <div className='my-8'>
@@ -58,18 +55,29 @@ const BestReviewSlide = ({ reviews }: Props) => {
         <div className='flex-1'>
           <div className='h-50 rounded-lg border-2 border-gray-300 bg-white px-3 pt-4 text-black shadow-md'>
             <div className='mb-2 flex items-center gap-3'>
-              <span className='font-semibold'>
-                {top3[current].content.slice(0, 5)}…
-              </span>
-              <span>{renderStars(top3[current].rating)}</span>
+              <span className='font-semibold'>{content.slice(0, 5)}…</span>
+              <StarDisplay rating={rating} size={20} />
             </div>
+
             <hr className='my-2' />
+
             <div className='mb-2'>
-              <p className='text-xs'>{top3[current].content}</p>
+              <p className='text-xs'>{content}</p>
             </div>
+
             <hr className='my-2' />
-            <div>
-              <p className='text-xs'>공감 수 {top3[current].likes}</p>
+
+            <div className='flex items-center gap-2 px-3 pb-4'>
+              <FaHeart
+                onClick={() => {
+                  if (onLike && originalIndex !== -1) {
+                    onLike(originalIndex);
+                  }
+                }}
+                className='cursor-pointer text-red-500 transition-colors hover:text-red-600'
+                size={20}
+              />
+              <p className='text-sm text-gray-500'>{likes}</p>
             </div>
           </div>
         </div>
