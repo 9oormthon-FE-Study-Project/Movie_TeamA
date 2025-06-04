@@ -1,23 +1,29 @@
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+// src/components/review/AllReview.tsx
+import React from 'react';
+import { FaStar, FaStarHalfAlt, FaRegStar, FaHeart } from 'react-icons/fa';
 
 type Props = {
   content: string;
   rating: number;
+  likes: number;
+  onLike: () => void;
 };
 
 const renderStars = (rating: number) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
-    if (rating >= i)
+    if (rating >= i) {
       stars.push(<FaStar key={i} className='inline text-yellow-400' />);
-    else if (rating >= i - 0.5)
+    } else if (rating >= i - 0.5) {
       stars.push(<FaStarHalfAlt key={i} className='inline text-yellow-400' />);
-    else stars.push(<FaRegStar key={i} className='inline text-yellow-400' />);
+    } else {
+      stars.push(<FaRegStar key={i} className='inline text-yellow-400' />);
+    }
   }
   return stars;
 };
 
-const AllReview = ({ content, rating }: Props) => {
+const AllReview = ({ content, rating, likes, onLike }: Props) => {
   return (
     <div className='flex-1'>
       <div className='mx-4 mb-5 w-[90%] rounded-lg border-2 bg-white pb-4'>
@@ -30,8 +36,13 @@ const AllReview = ({ content, rating }: Props) => {
           <p className='ml-3 text-xs text-gray-700'>{content}</p>
         </div>
         <hr className='my-2' />
-        <div>
-          <p className='ml-3 text-sm text-gray-500'>공감 수 0</p>
+        <div className='flex items-center gap-2 px-3 pb-4'>
+          <FaHeart
+            onClick={onLike}
+            className='cursor-pointer text-red-500 transition-colors hover:text-red-600'
+            size={20}
+          />
+          <p className='text-sm text-gray-500'>{likes}</p>
         </div>
       </div>
     </div>
