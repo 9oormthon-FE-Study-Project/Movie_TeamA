@@ -8,7 +8,7 @@ import { Movie } from '../../types/movie';
 const BannerSlider = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [current, setCurrent] = useState<number>(0);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
