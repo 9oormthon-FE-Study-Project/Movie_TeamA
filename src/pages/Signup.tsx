@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { SignupForm } from '../../types/signup';
+import { SignupForm } from '../types/signup';
 // import axios from 'axios';
 
 const Signup = () => {
