@@ -9,10 +9,11 @@ interface SignupForm {
   email: string;
   gender: string;
   birthdate: string;
+  confirmPassword: string;
 }
 
 const Signup = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<SignupForm>();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<SignupForm>();
   const navigate = useNavigate();
 
   const onSubmit = async (data: SignupForm) => {
@@ -37,7 +38,7 @@ const Signup = () => {
               type="text"
               {...register('username', { required: '아이디를 입력하세요.' })}
               placeholder="아이디"
-              className="w-full px-4 py-2 rounded bg-gray-500 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             {errors.username && <p className="text-red-400 text-sm mt-1">{errors.username.message}</p>}
           </div>
@@ -46,23 +47,48 @@ const Signup = () => {
               type="password"
               {...register('password', { required: '비밀번호를 입력하세요.' })}
               placeholder="비밀번호"
-              className="w-full px-4 py-2 rounded bg-gray-500 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              onKeyDown={(e) => {
+                if (e.key === ' ') {
+                  e.preventDefault(); // 공백 입력 방지
+                }
+              }}
             />
             {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password.message}</p>}
+          </div>
+          <div>
+            <input
+              type="password"
+              {...register('confirmPassword', {
+                required: '비밀번호 확인을 입력하세요.',
+                validate: (value) =>
+                  value === watch('password') || '비밀번호가 일치하지 않습니다.',
+              })}
+              placeholder="비밀번호 확인"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              onKeyDown={(e) => {
+                if (e.key === ' ') {
+                  e.preventDefault(); // 공백 입력 방지
+                }
+              }}
+            />
+            {errors.confirmPassword && (
+              <p className="text-red-400 text-sm mt-1">{errors.confirmPassword.message}</p>
+            )}
           </div>
           <div>
             <input
               type="email"
               {...register('email', { required: '이메일을 입력하세요.' })}
               placeholder="이메일"
-              className="w-full px-4 py-2 rounded bg-gray-500 text-white border border-gray-700  focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700  focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>}
           </div>
           <div>
             <select
               {...register('gender', { required: '성별을 선택하세요.' })}
-              className="w-full px-4 py-2 rounded bg-gray-500 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
               <option value="">성별 선택</option>
               <option value="male">남성</option>
@@ -74,11 +100,11 @@ const Signup = () => {
             <input
               type="date"
               {...register('birthdate', { required: '생년월일을 입력하세요.' })}
-              className="w-full px-4 py-2 rounded bg-gray-500 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             {errors.birthdate && <p className="text-red-400 text-sm mt-1">{errors.birthdate.message}</p>}
           </div>
-          <button type="submit" className="w-full py-2 bg-gray-500 hover:bg-gray-700 text-white rounded transition">회원가입</button>
+          <button type="submit" className="w-full py-2 bg-red-800 hover:bg-gray-700 text-white rounded transition">회원가입</button>
         </form>
         <p className="text-gray-400 text-center mt-4">
           이미 계정이 있으신가요?{' '}
@@ -89,4 +115,4 @@ const Signup = () => {
   );
 };
 
-export default Signup; 
+export default Signup;

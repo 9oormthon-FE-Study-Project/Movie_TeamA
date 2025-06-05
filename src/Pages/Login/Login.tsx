@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,19 +13,50 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
 
   const onSubmit = async (data: LoginForm) => {
-    // try {
-    //   const res = await axios.post('/api/login', data);
-    //   if (res.data.success) {
-    //     login();
-    //     // navigate('/');
-    //   }
-    // } catch (e) {
-    //   alert('로그인 실패');
-    // }
-    login();
+    try {
+      // 서버로 데이터를 전송할 때 대소문자를 그대로 유지
+      const { username, password } = data;
+
+      // 예시: 서버 요청 (주석 처리된 부분)
+      // const res = await axios.post('/api/login', { username, password });
+      // if (res.data.success) {
+      //   login();
+      //   setUsername(username); // 대소문자 그대로 저장
+      //   setIsLoggedIn(true);
+      // }
+
+      // 임시 로직: 대소문자 구분 테스트
+      if (username === "Admin" && password === "Password123") {
+        login();
+        setUsername(username); // 대소문자 그대로 저장
+        setIsLoggedIn(true);
+      } else {
+        alert("아이디 또는 비밀번호가 잘못되었습니다.");
+      }
+    } catch (e) {
+      alert("로그인 실패");
+    }
   };
+
+  if (isLoggedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black">
+        <div className="bg-black p-8 rounded-lg shadow-md w-full max-w-md text-center">
+          <h2 className="text-2xl font-bold text-white mb-6">Welcome! {username}</h2>
+          <button
+            onClick={() => navigate('/')}
+            className="w-full py-2 bg-red-800 hover:bg-gray-700 text-white rounded transition"
+          >
+          HOME 
+          </button>  
+        </div>
+      </div>
+    ); // 나중에 가능하면 홈화면과 연결
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
@@ -37,7 +68,7 @@ const Login = () => {
               type="text"
               {...register('username', { required: '아이디를 입력하세요.' })}
               placeholder="아이디"
-              className="w-full px-4 py-2 rounded bg-gray-500 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             {errors.username && <p className="text-red-400 text-sm mt-1">{errors.username.message}</p>}
           </div>
@@ -46,11 +77,16 @@ const Login = () => {
               type="password"
               {...register('password', { required: '비밀번호를 입력하세요.' })}
               placeholder="비밀번호"
-              className="w-full px-4 py-2 rounded bg-gray-500 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-2 rounded bg-gray-300 text-gray-700 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              onKeyDown={(e) => {
+                if (e.key === ' ') {
+                  e.preventDefault(); // 공백 입력 방지
+                }
+              }}
             />
             {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password.message}</p>}
           </div>
-          <button type="submit" className="w-full py-2 bg-gray-500 hover:bg-gray-700 text-white rounded transition">로그인</button>
+          <button type="submit" className="w-full py-2 bg-red-800 hover:bg-gray-700 text-white rounded transition">로그인</button>
         </form>
         <p className="text-gray-400 text-center mt-4">
           계정이 없으신가요?{' '}
