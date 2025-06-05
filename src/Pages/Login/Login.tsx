@@ -15,28 +15,20 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
 
-  const onSubmit = (data: LoginForm) => {
-    const { username, password } = data;
+  const onSubmit = async (data: LoginForm) => {
 
-    // 서버 요청 부분 주석 처리
-    // try {
-    //   const res = await axios.post('/api/login', { username, password });
-    //   if (res.data.success) {
-    //     login();
-    //     setUsername(username);
-    //     setIsLoggedIn(true);
-    //   }
-    // } catch (e) {
-    //   alert("로그인 실패");
-    // }
-
-    // 임시 로직: 하드코딩된 아이디와 비밀번호로 로그인 처리
-    if (username === "Admin" && password === "Password123") {
+    try {
+      // const res = await axios.post('/api/login', data);
+      // if (res.data.success) {
+      //   login();
+      //   setUsername(data.username);
+      //   setIsLoggedIn(true);
+      // }
       login();
-      setUsername(username);
+      setUsername(data.username);
       setIsLoggedIn(true);
-    } else {
-      alert("아이디 또는 비밀번호가 잘못되었습니다.");
+    } catch (e) {
+      alert('로그인 실패');
     }
   };
 
