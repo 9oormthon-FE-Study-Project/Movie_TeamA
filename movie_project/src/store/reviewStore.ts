@@ -7,7 +7,7 @@ interface ReviewStore {
   increaseLike: (index: number) => void;
 }
 
-export const useReviewStore = create<ReviewStore>((set) => ({
+const useReviewStore = create<ReviewStore>((set) => ({
   reviews: [],
 
   addReview: (data) =>
@@ -25,3 +25,5 @@ export const useReviewStore = create<ReviewStore>((set) => ({
       ),
     })),
 }));
+
+export { useReviewStore };
