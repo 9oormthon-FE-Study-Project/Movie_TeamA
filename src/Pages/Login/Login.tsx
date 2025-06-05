@@ -42,7 +42,7 @@ const Login = () => {
             onClick={() => navigate('/')}
             className="w-full py-2 bg-red-800 hover:bg-gray-700 text-white rounded transition"
           >
-            HOME
+          HOME
           </button>
         </div>
       </div>
