@@ -1,22 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { SignupForm } from '../../types/signup';
 // import axios from 'axios';
-
-interface SignupForm {
-  username: string;
-  password: string;
-  email: string;
-  gender: string;
-  birthdate: string;
-  confirmPassword: string;
-}
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<SignupForm>();
   const navigate = useNavigate();
 
   const onSubmit = async (data: SignupForm) => {
+    // 서버 요청 부분 주석 처리
     // try {
     //   const res = await axios.post('/api/signup', data);
     //   if (res.data.success) {

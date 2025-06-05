@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
 import { useAuthStore } from '../../store/authStore';
+import { LoginForm } from '../../types/login';
 
-interface LoginForm {
-  username: string;
-  password: string;
-}
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
@@ -17,14 +13,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
 
   const onSubmit = async (data: LoginForm) => {
-
     try {
-      // const res = await axios.post('/api/login', data);
-      // if (res.data.success) {
-      //   login();
-      //   setUsername(data.username);
-      //   setIsLoggedIn(true);
-      // }
       login();
       setUsername(data.username);
       setIsLoggedIn(true);
@@ -42,7 +31,7 @@ const Login = () => {
             onClick={() => navigate('/')}
             className="w-full py-2 bg-red-800 hover:bg-gray-700 text-white rounded transition"
           >
-          HOME
+            HOME
           </button>
         </div>
       </div>
