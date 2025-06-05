@@ -7,4 +7,7 @@ export interface Movie {
   backdrop_path: string;
   overview: string;
   vote_average: number;
+  release_date?: string;
+  first_air_date?: string;
+  genre_ids: number[];
 }

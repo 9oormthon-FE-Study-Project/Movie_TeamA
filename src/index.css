@@ -1,7 +1,11 @@
-@import "tailwindcss";
+
+@import 'tailwindcss';
 
 * {
   box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
 }
 
 html,
@@ -12,6 +16,7 @@ body,
   height: 100%;
   overflow: hidden;
 }
+
 
 /* 스크롤바 숨기기 */
 .scrollbar-hide::-webkit-scrollbar {

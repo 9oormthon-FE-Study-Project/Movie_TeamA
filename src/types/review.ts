@@ -3,3 +3,12 @@ export interface Review {
   comment: string;
   likes: number;
 }
+
+export interface ReviewData {
+  content: string;
+  rating: number;
+}
+
+export interface ReviewDataWithLikes extends ReviewData {
+  likes: number;
+}
