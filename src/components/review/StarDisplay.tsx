@@ -1,10 +1,6 @@
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+import { StarDisplayProps } from '../../types/starProps';
 
-interface StarDisplayProps {
-  rating: number;
-  size?: number;
-  className?: string;
-}
 
 const StarDisplay = ({
   rating,

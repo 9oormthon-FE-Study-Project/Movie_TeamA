@@ -1,14 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
-import { ReviewDataWithLikes } from '../../types/review';
 import StarDisplay from './StarDisplay';
+import { BestReviewSlideProps } from '../../types/reviewProps';
 
-interface Props {
-  reviews: ReviewDataWithLikes[];
-  onLike?: (index: number) => void;
-}
 
-const BestReviewSlide = ({ reviews, onLike }: Props) => {
+const BestReviewSlide = ({ reviews, onLike }: BestReviewSlideProps) => {
   const top3 = useMemo(() => {
     return [...reviews].sort((a, b) => b.likes - a.likes).slice(0, 3);
   }, [reviews]);

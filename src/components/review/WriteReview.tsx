@@ -1,12 +1,9 @@
 import { useState, FormEvent } from 'react';
 import StarRating from './StarRating';
-import { ReviewData } from '../../types/review';
+import { WriteReviewProps } from '../../types/reviewProps';
 
-interface Props {
-  onSubmitReview: (data: ReviewData) => void;
-}
 
-const WriteReview = ({ onSubmitReview }: Props) => {
+const WriteReview = ({ onSubmitReview }: WriteReviewProps) => {
   const [reviewInput, setReviewInput] = useState('');
   const [selectedRating, setSelectedRating] = useState(0);
 

@@ -1,10 +1,8 @@
 import { useState, useCallback, useEffect, MouseEvent } from 'react';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaRedo } from 'react-icons/fa';
+import { StarRatingProps } from '../../types/starProps';
 
-interface Props {
-  onChange?: (score: number) => void;
-  score?: number;
-}
+
 
 const Star = ({ index, score }: { index: number; score: number }) => {
   if (score >= index) return <FaStar />;
@@ -12,7 +10,7 @@ const Star = ({ index, score }: { index: number; score: number }) => {
   return <FaRegStar />;
 };
 
-const StarRating = ({ onChange, score = 0 }: Props) => {
+const StarRating = ({ onChange, score = 0 }: StarRatingProps) => {
   const [hoverScore, setHoverScore] = useState<number | null>(null);
   const [selectedScore, setSelectedScore] = useState<number>(score);
   const [isFixed, setIsFixed] = useState(false);
