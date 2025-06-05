@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAuthStore } from '../../store/authStore';
 
 interface LoginForm {
@@ -16,29 +15,28 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
 
-  const onSubmit = async (data: LoginForm) => {
-    try {
-      // 서버로 데이터를 전송할 때 대소문자를 그대로 유지
-      const { username, password } = data;
+  const onSubmit = (data: LoginForm) => {
+    const { username, password } = data;
 
-      // 예시: 서버 요청 (주석 처리된 부분)
-      // const res = await axios.post('/api/login', { username, password });
-      // if (res.data.success) {
-      //   login();
-      //   setUsername(username); // 대소문자 그대로 저장
-      //   setIsLoggedIn(true);
-      // }
+    // 서버 요청 부분 주석 처리
+    // try {
+    //   const res = await axios.post('/api/login', { username, password });
+    //   if (res.data.success) {
+    //     login();
+    //     setUsername(username);
+    //     setIsLoggedIn(true);
+    //   }
+    // } catch (e) {
+    //   alert("로그인 실패");
+    // }
 
-      // 임시 로직: 대소문자 구분 테스트
-      if (username === "Admin" && password === "Password123") {
-        login();
-        setUsername(username); // 대소문자 그대로 저장
-        setIsLoggedIn(true);
-      } else {
-        alert("아이디 또는 비밀번호가 잘못되었습니다.");
-      }
-    } catch (e) {
-      alert("로그인 실패");
+    // 임시 로직: 하드코딩된 아이디와 비밀번호로 로그인 처리
+    if (username === "Admin" && password === "Password123") {
+      login();
+      setUsername(username);
+      setIsLoggedIn(true);
+    } else {
+      alert("아이디 또는 비밀번호가 잘못되었습니다.");
     }
   };
 
@@ -51,11 +49,11 @@ const Login = () => {
             onClick={() => navigate('/')}
             className="w-full py-2 bg-red-800 hover:bg-gray-700 text-white rounded transition"
           >
-          HOME 
-          </button>  
+            HOME
+          </button>
         </div>
       </div>
-    ); // 나중에 가능하면 홈화면과 연결
+    );
   }
 
   return (
