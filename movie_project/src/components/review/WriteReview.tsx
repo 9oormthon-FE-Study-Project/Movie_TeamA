@@ -37,13 +37,13 @@ const WriteReview = ({ onSubmitReview }: Props) => {
           onChange={(e) => setReviewInput(e.target.value)}
           className='h-40 w-[90%] rounded-lg border-2 border-gray-300 bg-white px-3 py-2 text-black focus:outline-none'
         />
-        <div className='mt-1 flex items-center justify-between gap-2'>
+        <div className='mt-1 flex w-[90%] justify-between gap-2 p-2'>
           <StarRating
             score={selectedRating}
             onChange={(score) => setSelectedRating(score)}
           />
-          <button type='submit' className='ml-10 font-bold'>
-            리뷰 등록
+          <button type='submit' className='font-bold'>
+            리뷰등록
           </button>
         </div>
       </form>

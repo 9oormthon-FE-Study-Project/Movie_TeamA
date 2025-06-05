@@ -46,7 +46,7 @@ const BestReviewSlide = ({ reviews, onLike }: Props) => {
 
   return (
     <div className='my-8'>
-      <div className='mb-3 ml-5 text-xl font-bold'>베스트 리뷰 (Top 3)</div>
+      <div className='mb-3 ml-5 text-xl font-bold'>베스트 리뷰</div>
       <div className='flex items-center'>
         <button onClick={handlePrev} className='mr-2 rounded-full p-2 text-xl'>
           <FaChevronLeft />
@@ -56,28 +56,30 @@ const BestReviewSlide = ({ reviews, onLike }: Props) => {
           <div className='h-50 rounded-lg border-2 border-gray-300 bg-white px-3 pt-4 text-black shadow-md'>
             <div className='mb-2 flex items-center gap-3'>
               <span className='font-semibold'>{content.slice(0, 5)}…</span>
-              <StarDisplay rating={rating} size={20} />
             </div>
 
-            <hr className='my-2' />
+            <hr className='m-auto my-2 border-t border-gray-200' />
 
             <div className='mb-2'>
               <p className='text-xs'>{content}</p>
             </div>
 
-            <hr className='my-2' />
+            <hr className='m-auto my-2 border-t border-gray-200' />
 
-            <div className='flex items-center gap-2 px-3 pb-4'>
-              <FaHeart
-                onClick={() => {
-                  if (onLike && originalIndex !== -1) {
-                    onLike(originalIndex);
-                  }
-                }}
-                className='cursor-pointer text-red-500 transition-colors hover:text-red-600'
-                size={20}
-              />
-              <p className='text-sm text-gray-500'>{likes}</p>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center gap-2 pt-1'>
+                <FaHeart
+                  onClick={() => {
+                    if (onLike && originalIndex !== -1) {
+                      onLike(originalIndex);
+                    }
+                  }}
+                  className='cursor-pointer text-red-500 transition-colors hover:text-red-600'
+                  size={20}
+                />
+                <p className='text-sm text-gray-500'>{likes}</p>
+              </div>
+              <StarDisplay rating={rating} size={20} />
             </div>
           </div>
         </div>
