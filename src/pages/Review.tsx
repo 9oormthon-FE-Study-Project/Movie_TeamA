@@ -5,6 +5,7 @@ import WriteReview from '../components/review/WriteReview';
 import BestReviewSlide from '../components/review/BestReviewSlide';
 import AllReview from '../components/review/AllReview';
 import StarAverage from '../components/review/StarAverage';
+import Nav from '../components/home/Nav';
 
 const Review = () => {
   const reviews = useReviewStore((state) => state.reviews);
@@ -13,6 +14,7 @@ const Review = () => {
 
   return (
     <div className='bg-black text-white'>
+      <Nav />
       <Poster />
       <Plot />
       <StarAverage />
