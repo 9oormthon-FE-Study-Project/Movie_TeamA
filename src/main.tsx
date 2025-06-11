@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: 'review/:movieId',
+        path: 'review',
         element: <Review />,
       },
     ],
