@@ -4,11 +4,13 @@ import { scrollToIndex } from '../../utils/scrollToIndex';
 import axios from '../../api/axios';
 import requests from '../../api/requests';
 import { Movie } from '../../types/movie';
+import { useNavigate } from 'react-router-dom';
 
 const BannerSlider = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,6 +54,7 @@ const BannerSlider = () => {
             src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
             alt={movie.title}
             className='h-56 w-full flex-shrink-0 object-cover'
+            onClick={() => navigate(`/review/${movie.id}`)}
           />
         ))}
       </div>

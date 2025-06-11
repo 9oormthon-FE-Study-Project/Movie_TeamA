@@ -4,11 +4,13 @@ import { scrollToIndex } from '../../utils/scrollToIndex';
 import axios from '../../api/axios';
 import requests from '../../api/requests';
 import { Movie } from '../../types/movie';
+import { useNavigate } from 'react-router-dom';
 
 const PopularMovie = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopMovies = async () => {
@@ -52,6 +54,7 @@ const PopularMovie = () => {
               <div
                 key={movie.id}
                 className='relative aspect-[2/3] w-[150px] shrink-0'
+                onClick={() => navigate(`/review/${movie.id}`)}
               >
                 <h2 className='absolute bottom-1 left-1 text-4xl font-extrabold text-white drop-shadow-md'>
                   {idx + 1}

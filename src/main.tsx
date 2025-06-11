@@ -8,7 +8,6 @@ import Login from './pages/Login.tsx';
 import Signup from './pages/Signup.tsx';
 import Review from './pages/Review.tsx';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: 'review',
+        path: 'review/:movieId',
         element: <Review />,
       },
     ],
