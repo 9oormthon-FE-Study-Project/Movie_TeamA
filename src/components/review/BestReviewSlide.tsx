@@ -2,9 +2,10 @@ import { useState, useEffect, useMemo } from 'react';
 import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
 import StarDisplay from './StarDisplay';
 import { BestReviewSlideProps } from '../../types/reviewProps';
-
+import { useAuthStore } from '../../store/authStore';
 
 const BestReviewSlide = ({ reviews, onLike }: BestReviewSlideProps) => {
+  const username = useAuthStore((s) => s.username);
   const top3 = useMemo(() => {
     return [...reviews].sort((a, b) => b.likes - a.likes).slice(0, 3);
   }, [reviews]);
@@ -51,7 +52,7 @@ const BestReviewSlide = ({ reviews, onLike }: BestReviewSlideProps) => {
         <div className='flex-1'>
           <div className='h-50 rounded-lg border-2 border-gray-300 bg-white px-3 pt-4 text-black shadow-md'>
             <div className='mb-2 flex items-center gap-3'>
-              <span className='font-semibold'>{content.slice(0, 5)}…</span>
+              <span className='font-semibold'>{username}</span>
             </div>
 
             <hr className='m-auto my-2 border-t border-gray-200' />

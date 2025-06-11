@@ -18,7 +18,7 @@ const Login = () => {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      login();
+      login(data.username);
       setUsername(data.username);
       setIsLoggedIn(true);
     } catch (e) {
