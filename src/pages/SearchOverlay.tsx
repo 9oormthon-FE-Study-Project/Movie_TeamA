@@ -51,7 +51,7 @@ const SearchOverlay = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex min-h-screen items-start justify-center bg-black" style={{ minHeight: '100vh' }}>
+    <div className="fixed inset-0 z-50 flex min-h-screen max-w-md items-center flex-col justify-center bg-black bg-opacity-80" style={{ minHeight: '100vh' }}>
       <div className="w-full max-w-md mt-20 flex flex-col">
         {/* 네비게이션 바와 동일한 검색창 */}
         <div className='flex w-full items-center justify-center px-4 py-2'>
@@ -73,7 +73,8 @@ const SearchOverlay = ({
         </div>
         {/* 검색 결과 */}
         <div className='flex min-h-screen items-center justify-center'>
-          <div className='w-full max-w-md rounded-lg bg-black p-8 text-center shadow-md'>
+          <div className='w-full max-w-md rounded-lg bg-black p-8 text-center shadow-md text-white
+          '>
             {searchTerm ? (
               filteredResults.length > 0 ? (
                 <ul>
