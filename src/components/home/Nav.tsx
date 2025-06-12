@@ -3,7 +3,7 @@ import { IoCloseOutline, IoHomeOutline } from 'react-icons/io5';
 import { FaUserCircle } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const Nav = () => {
+const Nav = ({ onSearchFocus, searchTerm, onSearchTermChange }: { onSearchFocus: () => void, searchTerm: string, onSearchTermChange: (v: string) => void }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,9 +23,15 @@ const Nav = () => {
               type='text'
               placeholder='검색어를 입력하세요...'
               className='flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none'
+              value={searchTerm}
+              onFocus={onSearchFocus}
+              onChange={e => {
+                onSearchTermChange(e.target.value);
+                onSearchFocus();
+              }}
             />
             <div className='ml-2 flex cursor-pointer items-center gap-3 text-2xl text-white'>
-              <IoCloseOutline />
+              <IoCloseOutline onClick={() => onSearchTermChange('')} />
               <CiSearch />
             </div>
           </div>
