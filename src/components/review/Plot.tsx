@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import axios from '../../api/axios';
-import requests from '../../api/requests';
 import { Movie } from '../../types/movie';
+import requests from '../../api/requests';
 import { MovieResponse } from '../../types/movieResponse';
 
 const Plot = () => {

@@ -1,4 +1,4 @@
-import { ReviewData, ReviewDataWithLikes } from './review'; 
+import { ReviewData, ReviewDataWithLikes } from './review';
 
 export interface AllReviewProps {
   content: string;

@@ -1,14 +1,24 @@
 import { useState, FormEvent } from 'react';
 import StarRating from './StarRating';
 import { WriteReviewProps } from '../../types/reviewProps';
-
+import { useAuthStore } from '../../store/authStore';
+import { useNavigate } from 'react-router-dom';
 
 const WriteReview = ({ onSubmitReview }: WriteReviewProps) => {
   const [reviewInput, setReviewInput] = useState('');
   const [selectedRating, setSelectedRating] = useState(0);
+  const navigate = useNavigate();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const handleReviewSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!isLoggedIn) {
+      alert('리뷰를 작성하려면 먼저 로그인해주세요.');
+      navigate('/login');
+      return;
+    }
+
     if (!reviewInput.trim()) {
       alert('리뷰를 입력해주세요.');
       return;
