@@ -112,7 +112,6 @@ const SearchOverlay = ({
             ) : (
               <div className='text-gray-400 py-8 text-center'>
                 <p className='text-lg mb-2'>검색어를 입력하세요</p>
-                <p className='text-sm'>영화, TV 프로그램, 인물 등을 검색할 수 있습니다</p>
               </div>
             )}
           </div>
