@@ -1,32 +1,27 @@
 import React from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 // 임시 mock 데이터
 const mockResults = [
   {
     title: '모아나',
     year: '2016년 영화',
-    img: 'https://image.tmdb.org/t/p/w200/4J1yUY1LI1V1Sg3yqfZlqF8g1bI.jpg',
     desc: '2016년 영화',
+    img: '',
   },
   {
     title: '모아나 2',
     year: '2024년 영화',
-    img: 'https://image.tmdb.org/t/p/w200/2QKjvQbKQdQKjvQbKQdQKjvQbKQ.jpg',
     desc: '2024년 영화',
-  },
-  {
-    title: '모아나 ost',
-    year: '',
     img: '',
-    desc: '',
   },
   {
     title: '모아나 마우이',
     year: '',
-    img: 'https://image.tmdb.org/t/p/w200/4J1yUY1LI1V1Sg3yqfZlqF8g1bI.jpg',
     desc: '마우이 — 가상의 등장 인물',
+    img: '',
   },
 ];
 
@@ -41,7 +36,13 @@ const SearchOverlay = ({
   onSearchTermChange: (v: string) => void;
   onResultClick?: (result: any) => void;
 }) => {
+  const navigate = useNavigate();
   const filteredResults = mockResults.filter(r => r.title.includes(searchTerm));
+
+  const handlePosterClick = (result: any) => {
+    navigate('/review');
+    onClose();
+  };
 
   const handleResultClick = (result: any) => {
     if (onResultClick) {
@@ -51,8 +52,8 @@ const SearchOverlay = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex min-h-screen max-w-md items-center flex-col justify-center bg-black bg-opacity-80" style={{ minHeight: '100vh' }}>
-      <div className="w-full max-w-md mt-20 flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="flex h-full w-[420px]   max-w-full rounded-2xl bg-black p-6 shadow-lg flex flex-col mt-0">
         {/* 네비게이션 바와 동일한 검색창 */}
         <div className='flex w-full items-center justify-center px-4 py-2'>
           <div className='flex flex-1 items-center rounded-full bg-neutral-900 px-4 py-2'>
@@ -88,7 +89,7 @@ const SearchOverlay = ({
                         <img src={result.img} alt={result.title} className='w-14 h-14 rounded object-cover' />
                       ) : (
                         <div className='w-14 h-14 rounded bg-neutral-800 flex items-center justify-center'>
-                          <span className='text-2xl'>🎬</span>
+                          <span className='text-2xl'>포스터</span>
                         </div>
                       )}
                       <div>
