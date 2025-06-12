@@ -3,7 +3,7 @@ import CategorySlider from '../components/home/CategorySlider';
 import Nav from '../components/home/Nav';
 import PopularMovie from '../components/home/PopularMovie';
 import TopReview from '../components/home/TopReview';
-import SearchOverlay from '../components/SearchOverlay';
+import SearchOverlay from './SearchOverlay';
 import { useState } from 'react';
 
 export default function Home() {
