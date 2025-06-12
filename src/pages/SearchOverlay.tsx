@@ -3,6 +3,10 @@ import { CiSearch } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
+// 1. mockResults 대신 API에서 받아온 데이터를 사용
+// 2. 클릭 시 영화별 리뷰 페이지로 이동하려면:
+//   : handleResultClick에서 라우팅을 확장
+
 // 임시 mock 데이터
 const mockResults = [
   {
