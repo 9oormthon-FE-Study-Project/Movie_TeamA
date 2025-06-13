@@ -49,10 +49,11 @@ const SearchOverlay = ({
   };
 
   const handleResultClick = (result: any) => {
+    navigate('/review');
     if (onResultClick) {
       onResultClick(result);
-      onClose();
     }
+    onClose();
   };
 
   return (
