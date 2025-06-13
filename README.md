@@ -1,61 +1,55 @@
-# React + TypeScript + Vite
+# 영화 리뷰 프로젝트(TeamA)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. 프로젝트 개요 
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+React, Vite, TypeScript를 사용하여 제작된 영화 리뷰 사이트입니다. 
+TMDB API를 활용하여 영화 데이터를 가져오며 사용자들은 영화를 검색하며 상세 정보를 확인하며 리뷰를 작성하고 평가할 수 있습니다.
+전체적인 UI는 Tailwind CSS를 통해 디자인하였습니다. 또한 리뷰를 작성하고 리뷰 목록을 사용자들이 볼 수 있도록 하여 리뷰를 효율적으로 관리합니다.
 
 ---
 
-## 폴더 구조 요약
+## 2. 주요 기능
+### 메인 페이지
+* 통합 내비게이션 바: 홈 이동, 검색창, 사용자 프로필(로그인/회원가입) 기능이 포함된 상단 바
+* 영화 배너 슬라이더: 현재 상영 중인 영화 목록을 받아와 자동으로 넘어가는 배너 슬라이더를 통해 보여줌.
+* TOP 10 인기 영화: 주간 인기 영화 TOP 10을 포스터와 함께 순위별로 보여주는 슬라이더
+* 인기 리뷰: 가장 인기 있는 영화의 리뷰를 선정
+
+### 리뷰 페이지
+* 영화 상세 정보: 선택된 영화의 배경 이미지, 포스터, 제목, 개봉일, 장르 정보
+* 줄거리: 영화의 전체 줄거리를 제공하며, 내용이 길 경우 '더보기/줄이기' 토글 기능을 지원
+* 평균 별점: TMDB에서 제공하는 평점을 5점 만점으로 환산하여 시각적인 별점 기능 
+* 리뷰 작성: 사용자가 직접 별점을 매기고 리뷰를 작성하여 제출할 수 있는 폼을 제공
+* 전체 리뷰 목록: 작성된 모든 리뷰를 '좋아요' 버튼과 함께 목록 형태로 보여주며, 정렬 기능을 제공
+
+### 검색 기능
+* 실시간 검색: 내비게이션 바의 검색창에 입력하면, 검색 결과가 실시간으로 
+* 결과 미리보기: 검색된 각 영화의 포스터, 제목, 개봉 연도, 줄거리 요약에 대한 정보 제공
+* 상세 페이지 이동: 검색 결과에서 특정 영화를 클릭하면 해당 영화의 리뷰 페이지로 이동
+
+---
+## 3. 화면
+| ![image](https://github.com/user-attachments/assets/fc6acc6a-43db-40e5-9011-df6ae6a6d6e6) | ![image](https://github.com/user-attachments/assets/db69a8b1-c970-4281-a28c-1c8b518ad4f2) | ![image](https://github.com/user-attachments/assets/a9ca488c-4fff-4aa8-af50-207ecfdade12) |
+|------|-------|-------|
+|![image](https://github.com/user-attachments/assets/c9d434f0-2018-4bfd-9d5b-4d4633a6d7a7) | ![image](https://github.com/user-attachments/assets/017c09c1-84fb-4ab8-ae4d-41a2023c0674) | ![image](https://github.com/user-attachments/assets/f71f0ed0-2db0-4cc1-b16a-0729f9adcd75) |
+
+---
+
+## 4. 기술 스택
+
+| 구분 | 기술 |
+| :--- | :--- |
+| **프레임워크** | React, Vite |
+| **언어** | TypeScript |
+| **스타일링** | Tailwind CSS |
+| **라우팅** | React Router DOM |
+| **API 통신** | Axios |
+| **상태 관리** | Zustand |
+| **코드 품질** | ESLint, Prettier |
+
+
+---
+## 5. 폴더 구조 요약
 
 | 폴더 이름         | 역할 설명                                                              |
 | ------------- | ------------------------------------------------------------------ |
