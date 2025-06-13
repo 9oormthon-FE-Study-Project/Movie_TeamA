@@ -5,6 +5,7 @@ import WriteReview from '../components/review/WriteReview';
 import BestReviewSlide from '../components/review/BestReviewSlide';
 import AllReview from '../components/review/AllReview';
 import StarAverage from '../components/review/StarAverage';
+import Nav from '../components/home/Nav';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Nav from '../components/home/Nav';
@@ -19,6 +20,7 @@ const Review = () => {
 
   return (
     <div className='bg-black text-white'>
+      <Nav />
       {movieId && <Poster movieId={movieId} />}
       <Plot movieId={movieId} />
       <StarAverage movieId={movieId} />

@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { scrollToIndex } from '../../utils/scrollToIndex';
 import axios from '../../api/axios';
 import requests from '../../api/requests';
-import { Movie } from '../../types/movie';
+import { Movie, MovieResponse } from '../../types/movie';
 import { useNavigate } from 'react-router-dom';
 
 const PopularMovie = () => {
@@ -15,7 +15,9 @@ const PopularMovie = () => {
   useEffect(() => {
     const fetchTopMovies = async () => {
       try {
-        const response = await axios.get(requests.fetchKoreanTopMovies);
+        const response = await axios.get<MovieResponse>(
+          requests.fetchKoreanTopMovies
+        );
         const top10 = response.data.results.slice(0, 10);
         setMovies(top10);
       } catch (error) {

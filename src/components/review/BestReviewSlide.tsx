@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
 import StarDisplay from './StarDisplay';
-import { BestReviewSlideProps } from '../../types/reviewProps';
-import { useAuthStore } from '../../store/authStore';
+import { BestReviewSlideProps } from '../../types/review';
+import useAuthStore from '../../store/authStore';
 
 const BestReviewSlide = ({ reviews, onLike }: BestReviewSlideProps) => {
   const username = useAuthStore((s) => s.username);

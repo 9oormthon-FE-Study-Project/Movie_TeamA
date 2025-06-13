@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from '../../api/axios';
-import { MovieResponse } from '../../types/movieResponse';
-import { PosterProps } from '../../types/reviewProps';
+import { Movie } from '../../types/movie';
+import { PosterProps } from '../../types/review';
 
 const Poster = ({ movieId }: PosterProps) => {
-  const [movie, setMovie] = useState<MovieResponse | null>(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
     if (!movieId) return;
     axios
-      .get<MovieResponse>(`/movie/${movieId}`)
+      .get<Movie>(`/movie/${movieId}`)
       .then((res) => setMovie(res.data))
       .catch((err) => console.error(err));
   }, [movieId]);

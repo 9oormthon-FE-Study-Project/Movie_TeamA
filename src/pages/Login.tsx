@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
+import useAuthStore from '../store/authStore';
 import { LoginForm } from '../types/login';
 import Nav from '../components/home/Nav';
 

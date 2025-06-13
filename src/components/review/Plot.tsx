@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import axios from '../../api/axios';
 import { Movie } from '../../types/movie';
-import { PlotProps } from '../../types/reviewProps';
+import { PlotProps } from '../../types/review';
 
 const Plot = ({ movieId }: PlotProps) => {
   const [plot, setPlot] = useState('');
