@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from '../../api/axios';
-import requests from '../../api/requests';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
-import { MovieResponse } from '../../types/movie';
+import { Movie } from '../../types/movie';
+import { StarAverageProps } from '../../types/review';
 
 const Star = ({ index, score }: { index: number; score: number }) => {
   if (score >= index) return <FaStar />;
@@ -10,24 +10,22 @@ const Star = ({ index, score }: { index: number; score: number }) => {
   return <FaRegStar />;
 };
 
-const StarAverage = () => {
+const StarAverage = ({ movieId }: StarAverageProps) => {
   const [rating, setRating] = useState<number | null>(null);
-
   useEffect(() => {
-    const fetchRating = async () => {
-      try {
-        const response = await axios.get<MovieResponse>(
-          requests.fetchNowPlaying
-        );
-        const vote = response.data.results[0]?.vote_average;
-        setRating(typeof vote === 'number' ? vote / 2 : null);
-      } catch (err) {
-        setRating(null);
-      }
-    };
+    if (!movieId) return;
 
-    fetchRating();
-  }, []);
+    axios
+      .get<Movie>(`/movie/${movieId}`)
+      .then((res) => {
+        const vote = res.data.vote_average;
+        setRating(typeof vote === 'number' ? vote / 2 : null);
+      })
+      .catch((err) => {
+        console.error('별점 정보를 불러오는 데 실패했습니다:', err);
+        setRating(null);
+      });
+  }, [movieId]);
 
   if (rating === null) {
     return (

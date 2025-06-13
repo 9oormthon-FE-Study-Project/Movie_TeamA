@@ -1,18 +1,20 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import axios from '../../api/axios';
-import requests from '../../api/requests';
-import { MovieResponse } from '../../types/movie';
+import { Movie } from '../../types/movie';
+import { PlotProps } from '../../types/review';
 
-const Plot = () => {
+const Plot = ({ movieId }: PlotProps) => {
   const [plot, setPlot] = useState('');
   const [isShowMore, setIsShowMore] = useState(false);
   const limit = useRef(100);
 
   useEffect(() => {
+    if (!movieId) return;
+
     const fetchPlot = async () => {
       try {
-        const res = await axios.get<MovieResponse>(requests.fetchNowPlaying);
-        const overview = res.data.results[0]?.overview;
+        const res = await axios.get<Movie>(`/movie/${movieId}`);
+        const overview = res.data.overview;
         setPlot(overview || '줄거리 정보가 없습니다.');
       } catch (error) {
         setPlot('줄거리 정보를 불러오는 데 실패했습니다.');
@@ -20,7 +22,7 @@ const Plot = () => {
     };
 
     fetchPlot();
-  }, []);
+  }, [movieId]);
 
   const displayedText = useMemo(() => {
     if (plot.length <= limit.current) return plot;

@@ -5,19 +5,22 @@ import WriteReview from '../components/review/WriteReview';
 import BestReviewSlide from '../components/review/BestReviewSlide';
 import AllReview from '../components/review/AllReview';
 import StarAverage from '../components/review/StarAverage';
-import Nav from '../components/home/Nav';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Review = () => {
+  const { movieId } = useParams();
   const reviews = useReviewStore((state) => state.reviews);
   const addReview = useReviewStore((state) => state.addReview);
   const increaseLike = useReviewStore((state) => state.increaseLike);
 
+  useEffect(() => {}, [movieId]);
+
   return (
     <div className='bg-black text-white'>
-      <Nav />
-      <Poster />
-      <Plot />
-      <StarAverage />
+      {movieId && <Poster movieId={movieId} />}
+      <Plot movieId={movieId} />
+      <StarAverage movieId={movieId} />
       <WriteReview onSubmitReview={addReview} />
       <BestReviewSlide reviews={reviews} onLike={increaseLike} />
 

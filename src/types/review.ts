@@ -28,3 +28,15 @@ export interface BestReviewSlideProps {
   reviews: ReviewDataWithLikes[];
   onLike?: (index: number) => void;
 }
+
+export interface StarAverageProps {
+  movieId?: string;
+}
+
+export interface PlotProps {
+  movieId?: string;
+}
+
+export interface PosterProps {
+  movieId: string;
+}

@@ -1,3 +1,8 @@
+export interface Genre {
+  id: number;
+  name: string;
+}
+
 export interface Movie {
   id: number;
   title: string;
@@ -10,6 +15,7 @@ export interface Movie {
   release_date?: string;
   first_air_date?: string;
   genre_ids: number[];
+  genres?: Genre[];
 }
 
 export interface MovieResponse {
