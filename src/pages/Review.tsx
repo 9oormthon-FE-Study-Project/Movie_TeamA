@@ -7,6 +7,7 @@ import AllReview from '../components/review/AllReview';
 import StarAverage from '../components/review/StarAverage';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Nav from '../components/home/Nav';
 
 const Review = () => {
   const { movieId } = useParams();
