@@ -7,12 +7,12 @@ import axios from '../api/axios';
 import requests from '../api/requests';
 import { MovieSearchResponse } from '../types/search';
 
-const SearchOverlay: React.FC<SearchOverlayProps> = ({
+const SearchOverlay = ({
   searchTerm,
   onClose,
   onSearchTermChange,
   onResultClick,
-}) => {
+}: SearchOverlayProps) => {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
