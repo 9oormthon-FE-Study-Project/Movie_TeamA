@@ -8,12 +8,17 @@ import StarAverage from '../components/review/StarAverage';
 import Nav from '../components/home/Nav';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
 
 const Review = () => {
   const { movieId } = useParams();
   const reviews = useReviewStore((state) => state.reviews);
   const addReview = useReviewStore((state) => state.addReview);
   const increaseLike = useReviewStore((state) => state.increaseLike);
+
+  const filteredReviews = useMemo(() => {
+    return reviews.filter((r) => r.movieId === movieId);
+  }, [reviews, movieId]);
 
   useEffect(() => {}, [movieId]);
 
@@ -23,21 +28,24 @@ const Review = () => {
       {movieId && <Poster movieId={movieId} />}
       <Plot movieId={movieId} />
       <StarAverage movieId={movieId} />
-      <WriteReview onSubmitReview={addReview} />
-      <BestReviewSlide reviews={reviews} onLike={increaseLike} />
+      <WriteReview movieId={movieId!} onSubmitReview={addReview} />
+      <BestReviewSlide
+        reviews={filteredReviews}
+        onLike={(idx) => increaseLike(movieId!, idx)}
+      />
 
       <div className='mt-4 flex items-center justify-between px-4'>
         <h1 className='z-10 mx-2 mb-5 text-xl font-bold'>전체 리뷰</h1>
       </div>
 
       <div>
-        {reviews.map((review, i) => (
+        {filteredReviews.map((review, i) => (
           <AllReview
             key={i}
             content={review.content}
             rating={review.rating}
             likes={review.likes}
-            onLike={() => increaseLike(i)}
+            onLike={() => increaseLike(movieId!, i)}
           />
         ))}
       </div>
