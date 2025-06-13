@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
 import StarRating from './StarRating';
-import { WriteReviewProps } from '../../types/reviewProps';
+import { WriteReviewProps } from '../../types/review';
 
 const WriteReview = ({ onSubmitReview }: WriteReviewProps) => {
   const [reviewInput, setReviewInput] = useState('');

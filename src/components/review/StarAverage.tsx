@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import requests from '../../api/requests';
-import { Movie } from '../../types/movie';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
-import { MovieResponse } from '../../types/movieResponse';
+import { MovieResponse } from '../../types/movie';
 
 const Star = ({ index, score }: { index: number; score: number }) => {
   if (score >= index) return <FaStar />;

@@ -3,7 +3,7 @@ import axios from '../../api/axios';
 import requests from '../../api/requests';
 import heart from '../../assets/icon/heart.svg';
 import { renderStars } from '../../utils/renderStars';
-import { Movie } from '../../types/movie';
+import { Movie, MovieResponse } from '../../types/movie';
 import { Review } from '../../types/review';
 
 const TopReview = () => {
@@ -17,7 +17,9 @@ const TopReview = () => {
   useEffect(() => {
     const fetchTopMovie = async () => {
       try {
-        const res = await axios.get(requests.fetchKoreanTopMovies);
+        const res = await axios.get<MovieResponse>(
+          requests.fetchKoreanTopMovies
+        );
         const topMovie = res.data.results[0];
         setMovie(topMovie);
       } catch (err) {

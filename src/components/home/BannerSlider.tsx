@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { scrollToIndex } from '../../utils/scrollToIndex';
 import axios from '../../api/axios';
 import requests from '../../api/requests';
-import { Movie } from '../../types/movie';
+import { Movie, MovieResponse } from '../../types/movie';
 import { useNavigate } from 'react-router-dom';
 
 const BannerSlider = () => {
@@ -27,7 +27,7 @@ const BannerSlider = () => {
   useEffect(() => {
     const fetchNowPlaying = async () => {
       try {
-        const res = await axios.get(requests.fetchNowPlaying);
+        const res = await axios.get<MovieResponse>(requests.fetchNowPlaying);
         const limitedMovies = res.data.results.slice(0, 5);
         setMovies(limitedMovies);
       } catch (err) {

@@ -1,8 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import axios from '../../api/axios';
-import { Movie } from '../../types/movie';
 import requests from '../../api/requests';
-import { MovieResponse } from '../../types/movieResponse';
+import { MovieResponse } from '../../types/movie';
 
 const Plot = () => {
   const [plot, setPlot] = useState('');

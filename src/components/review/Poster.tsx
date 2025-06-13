@@ -3,7 +3,7 @@ import axios from '../../api/axios';
 import requests from '../../api/requests';
 import { Movie } from '../../types/movie';
 import { Genre } from '../../types/genre';
-import { MovieResponse } from '../../types/movieResponse';
+import { MovieResponse } from '../../types/movie';
 
 const Poster = () => {
   const [movie, setMovie] = useState<Movie | null>(null);

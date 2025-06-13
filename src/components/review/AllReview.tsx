@@ -1,6 +1,6 @@
 import { FaHeart } from 'react-icons/fa';
 import StarDisplay from './StarDisplay';
-import { AllReviewProps } from '../../types/reviewProps';
+import { AllReviewProps } from '../../types/review';
 
 const AllReview = ({ content, rating, likes, onLike }: AllReviewProps) => (
   <div className='flex-1'>

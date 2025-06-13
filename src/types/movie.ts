@@ -11,3 +11,7 @@ export interface Movie {
   first_air_date?: string;
   genre_ids: number[];
 }
+
+export interface MovieResponse {
+  results: Movie[];
+}
