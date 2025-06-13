@@ -6,6 +6,7 @@ import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 import Signup from './pages/Signup.tsx';
 import Review from './pages/Review.tsx';
+import SearchOverlay from './pages/Search.tsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: 'review/:movieId',
         element: <Review />,
+      },
+      {
+        path: 'search',
+        element: <SearchOverlay searchTerm="" onClose={() => {}} onSearchTermChange={() => {}} />,
       },
     ],
   },
