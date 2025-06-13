@@ -20,8 +20,6 @@ const Review = () => {
     return reviews.filter((r) => r.movieId === movieId);
   }, [reviews, movieId]);
 
-  useEffect(() => {}, [movieId]);
-
   return (
     <div className='bg-black text-white'>
       <Nav />
