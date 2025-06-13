@@ -10,4 +10,16 @@ export interface SearchResult {
   year: string;
   img: string;
   desc: string;
+  id?: number;
+}
+
+export interface MovieSearchResponse {
+  results: Array<{
+    id: number;
+    title?: string;
+    name?: string;
+    release_date?: string;
+    overview?: string;
+    poster_path?: string;
+  }>;
 }
