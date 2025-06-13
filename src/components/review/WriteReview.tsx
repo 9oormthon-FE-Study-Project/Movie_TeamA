@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import StarRating from './StarRating';
-import { WriteReviewProps } from '../../types/reviewProps';
-import { useAuthStore } from '../../store/authStore';
+import { WriteReviewProps } from '../../types/review';
+import useAuthStore from '../../store/authStore';
 import { useNavigate } from 'react-router-dom';
 
 const WriteReview = ({ onSubmitReview }: WriteReviewProps) => {

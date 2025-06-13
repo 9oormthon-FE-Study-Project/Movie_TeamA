@@ -3,7 +3,6 @@ export interface StarRatingProps {
   score?: number;
 }
 
-
 export interface StarDisplayProps {
   rating: number;
   size?: number;
