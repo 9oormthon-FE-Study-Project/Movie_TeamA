@@ -1,50 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { SearchResult, SearchOverlayProps } from '../types/search';
-
-// 1. API 연결 시 아래 mock 데이터 대신 API 호출로 대체
-// 2. useEffect를 사용하여 API 호출 구현
-
-// 임시 mock 데이터
-const mockResults: SearchResult[] = [
-  {
-    title: '모아나',
-    year: '2016년 영화',
-    desc: '2016년 영화',
-    img: '',
-    id: 1,
-  },
-  {
-    title: '모아나 2',
-    year: '2024년 영화',
-    desc: '2024년 영화',
-    img: '',
-    id: 2,
-  },
-  {
-    title: '모아나 마우이',
-    year: '',
-    desc: '마우이 — 가상의 등장 인물',
-    img: '',
-    id: 3,
-  },
-  {
-    title: '인터스텔라',
-    year: '2014년 영화',
-    desc: '우주를 배경으로 한 SF 영화',
-    img: '',
-    id: 4,
-  },
-  {
-    title: '인셉션',
-    year: '2010년 영화',
-    desc: '꿈 속의 꿈을 다룬 SF 영화',
-    img: '',
-    id: 5,
-  },
-];
+import axios from '../api/axios';
+import requests from '../api/requests';
+import { MovieSearchResponse } from '../types/search';
 
 const SearchOverlay: React.FC<SearchOverlayProps> = ({
   searchTerm,
@@ -53,10 +14,44 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({
   onResultClick,
 }) => {
   const navigate = useNavigate();
-  // API 연결 시 아래 코드를 주석 처리하고 위의 useEffect 코드를 활성화
-  const filteredResults = mockResults.filter(r => 
-    r.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const searchMovies = async () => {
+      if (!searchTerm.trim()) {
+        setSearchResults([]);
+        return;
+      }
+
+      setIsLoading(true);
+      try {
+        const response = await axios.get<MovieSearchResponse>(requests.searchMovies, {
+          params: {
+            query: searchTerm,
+          },
+        });
+
+        const results = response.data.results.map(movie => ({
+          title: movie.title || movie.name || '',
+          year: movie.release_date ? movie.release_date.split('-')[0] + '년 영화' : '',
+          desc: movie.overview || '',
+          img: movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '',
+          id: movie.id,
+        }));
+
+        setSearchResults(results);
+      } catch (error) {
+        console.error('영화 검색 중 오류가 발생했습니다:', error);
+        setSearchResults([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(searchMovies, 300);
+    return () => clearTimeout(debounceTimer);
+  }, [searchTerm]);
 
   const handleResultClick = (result: SearchResult) => {
     if (result.id) {
@@ -71,7 +66,6 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="flex h-full w-[420px] max-w-full rounded-2xl bg-black p-6 shadow-lg flex-col mt-0">
-        {/* 네비게이션 바와 동일한 검색창 */}
         <div className='flex w-full items-center justify-center px-4 py-2'>
           <div className='flex flex-1 items-center rounded-full bg-neutral-900 px-4 py-2'>
             <input
@@ -89,12 +83,15 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({
             </div>
           </div>
         </div>
-        {/* 검색 결과 */}
-        <div className='w-full max-w-md rounded-lg bg-black p-8 text-center shadow-md text-white'>
-          {searchTerm ? (
-            filteredResults.length > 0 ? (
+        <div className="mt-4 overflow-y-auto">
+          {isLoading ? (
+            <div className='text-gray-400 py-8 text-center'>
+              <p className='text-lg mb-2'>검색 중...</p>
+            </div>
+          ) : searchTerm ? (
+            searchResults.length > 0 ? (
               <ul>
-                {filteredResults.map((result, idx) => (
+                {searchResults.map((result, idx) => (
                   <li 
                     key={idx} 
                     className='flex items-center gap-4 py-3 border-b border-gray-800 last:border-b-0 cursor-pointer hover:bg-neutral-800 rounded-lg px-2'
@@ -108,7 +105,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({
                       </div>
                     )}
                     <div>
-                      <div className='font-semibold text-lg'>{result.title}</div>
+                      <div className='font-semibold text-lg text-white'>{result.title}</div>
                       <div className='text-xs text-gray-400'>{result.desc || result.year}</div>
                     </div>
                   </li>

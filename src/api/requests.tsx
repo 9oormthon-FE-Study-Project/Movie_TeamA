@@ -1,4 +1,3 @@
-
 import { RequestMap } from '../types/api';
 
 
@@ -14,6 +13,9 @@ const requests: RequestMap = {
 
   // 한국 TOP 10 영화 (트렌딩 영화 중 국가 필터)
   fetchKoreanTopMovies: '/trending/movie/week',
+
+  // 영화 검색
+  searchMovies: '/search/movie',
 };
 
 export default requests;
