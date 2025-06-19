@@ -1,10 +1,14 @@
 import { FaHeart } from 'react-icons/fa';
 import StarDisplay from './StarDisplay';
 import { AllReviewProps } from '../../types/review';
-import useAuthStore from '../../store/authStore';
 
-const AllReview = ({ content, rating, likes, onLike }: AllReviewProps) => {
-  const username = useAuthStore((s) => s.username);
+const AllReview = ({
+  content,
+  rating,
+  likes,
+  username,
+  onLike,
+}: AllReviewProps) => {
   return (
     <div className='flex-1'>
       <div className='mx-4 mb-5 w-[90%] rounded-lg border-2 bg-white pb-4'>

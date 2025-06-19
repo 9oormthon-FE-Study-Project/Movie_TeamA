@@ -102,6 +102,7 @@ const Review = () => {
         {filteredReviews.map((review, i) => (
           <AllReview
             key={i}
+            username={review.username}
             content={review.content}
             rating={review.rating}
             likes={review.likes}

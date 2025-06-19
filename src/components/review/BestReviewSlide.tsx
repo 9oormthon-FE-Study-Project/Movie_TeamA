@@ -36,7 +36,7 @@ const BestReviewSlide = ({ reviews, onLike }: BestReviewSlideProps) => {
 
   if (len === 0) return null;
 
-  const { content, rating, likes } = top3[current];
+  const { content, rating, likes, username: reviewUsername } = top3[current];
   const originalIndex = reviews.findIndex(
     (r) => r.content === content && r.rating === rating && r.likes === likes
   );
@@ -52,7 +52,7 @@ const BestReviewSlide = ({ reviews, onLike }: BestReviewSlideProps) => {
         <div className='flex-1'>
           <div className='h-50 rounded-lg border-2 border-gray-300 bg-white px-3 pt-4 text-black shadow-md'>
             <div className='mb-2 flex items-center gap-3'>
-              <span className='font-semibold'>{username}</span>
+              <span className='font-semibold'>{reviewUsername}</span>
             </div>
 
             <hr className='m-auto my-2 border-t border-gray-200' />

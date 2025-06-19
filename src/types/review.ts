@@ -12,12 +12,14 @@ export interface ReviewData {
 
 export interface ReviewDataWithLikes extends ReviewData {
   likes: number;
+  username: string;
 }
 
 export interface AllReviewProps {
   content: string;
   rating: number;
   likes: number;
+  username: string;
   onLike: () => void;
 }
 
