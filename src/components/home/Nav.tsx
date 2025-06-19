@@ -27,12 +27,20 @@ const Nav = () => {
     setSearchTerm(value);
   };
 
+  const handleHomeClick = () => {
+    if (isSearchOpen) {
+      setIsSearchOpen(false);
+      setSearchTerm('');
+    }
+    navigate('/');
+  };
+
   return (
     <>
       <div className='mb-2 flex w-full items-center justify-center bg-black px-4 py-2'>
         <div className='flex w-full max-w-5xl items-center justify-between gap-4'>
           <div className='cursor-pointer text-2xl text-white'>
-            <IoHomeOutline onClick={() => navigate('/')} />
+            <IoHomeOutline onClick={handleHomeClick} />
           </div>
 
           {!isAuthPage && (
@@ -63,6 +71,7 @@ const Nav = () => {
           searchTerm={searchTerm}
           onClose={handleSearchClose}
           onSearchTermChange={handleSearchTermChange}
+          onResultClick={() => {}}
         />
       )}
     </>
