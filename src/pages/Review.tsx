@@ -13,7 +13,6 @@ import StarAverage from '../components/review/StarAverage';
 import { useReviewStore } from '../store/reviewStore';
 import useAuthStore from '../store/authStore';
 import { ReviewDataWithLikes } from '../types/review';
-import AllReviewDropdown from '../components/review/AllReviewDropdown';
 
 const Review = () => {
   const { movieId } = useParams();
@@ -109,14 +108,12 @@ const Review = () => {
 
       const updatedReview = res.data;
 
-      // 리뷰 목록 업데이트
       useReviewStore.setState((prev) => ({
         reviews: prev.reviews.map((r) =>
           r.id === updatedReview.id ? updatedReview : r
         ),
       }));
 
-      // 좋아요 상태 토글
       setLikedReviewIds((prev) =>
         isLiked ? prev.filter((id) => id !== reviewId) : [...prev, reviewId]
       );
@@ -141,7 +138,6 @@ const Review = () => {
       />
       <div className='mt-4 flex items-center justify-between px-4'>
         <h1 className='z-10 mx-2 mb-5 text-xl font-bold'>전체 리뷰</h1>
-        <AllReviewDropdown />
       </div>
       <div>
         {filteredReviews.map((review) => (
