@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import { LoginForm } from '../types/login';
 import Nav from '../components/home/Nav';
+import axios from 'axios';
 
 const Login = () => {
   const {
@@ -18,10 +19,24 @@ const Login = () => {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      login(data.username);
+      const response = await axios.post('/api/auth/login', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const { token } = response.data;
+      console.log('로그인 응답:', response.data);
+
+      // 로그인 상태 업데이트
+      login(data.username); // Zustand store에 사용자 이름 저장
       setUsername(data.username);
       setIsLoggedIn(true);
-    } catch (e) {
+
+      // (선택) 토큰 저장
+      localStorage.setItem('token', token);
+    } catch (error) {
+      console.error('로그인 실패:', error);
       alert('로그인 실패');
     }
   };
