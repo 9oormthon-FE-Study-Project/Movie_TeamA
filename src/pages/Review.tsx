@@ -48,7 +48,7 @@ const Review = () => {
   const handleSubmitReview = async (data: {
     content: string;
     rating: number;
-    movieId: number;
+    movieId: number | string;
   }) => {
     try {
       const username = useAuthStore.getState().username;
@@ -65,7 +65,7 @@ const Review = () => {
           username,
           content: data.content,
           rating: data.rating,
-          movieId: data.movieId,
+          movieId: Number(data.movieId),
         },
         {
           headers: {
