@@ -20,6 +20,7 @@ export interface AllReviewProps {
   rating: number;
   likes: number;
   username: string;
+  createdAt: string;
   onLike: () => void;
 }
 
@@ -47,4 +48,8 @@ export interface PlotProps {
 
 export interface PosterProps {
   movieId: string;
+}
+
+export interface AllReviewDropdownProps {
+  onSelect: (value: '최신순' | '오래된순' | '인기순') => void;
 }
