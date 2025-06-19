@@ -119,6 +119,19 @@ const Login = () => {
               회원가입
             </button>
           </p>
+          <p className='mt-4 text-center text-gray-400'>
+            로그아웃하실건가요?{' '}
+            <button
+              className='cursor-pointer text-gray-300 underline'
+              onClick={() => {
+                useAuthStore.getState().logout();
+                localStorage.removeItem('token');
+                navigate('/');
+              }}
+            >
+              로그아웃
+            </button>
+          </p>
         </div>
       </div>
     </div>
