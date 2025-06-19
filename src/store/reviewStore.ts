@@ -4,6 +4,7 @@ import { ReviewData, ReviewDataWithLikes } from '../types/review';
 interface ReviewStore {
   reviews: ReviewDataWithLikes[];
   addReview: (data: ReviewData) => void;
+  addReviews: (data: ReviewDataWithLikes[]) => void;
   increaseLike: (movieId: string, indexInFiltered: number) => void;
 }
 
@@ -13,6 +14,11 @@ const useReviewStore = create<ReviewStore>((set) => ({
   addReview: (data) =>
     set((state) => ({
       reviews: [{ ...data, likes: 0 }, ...state.reviews],
+    })),
+
+  addReviews: (dataArray) =>
+    set((state) => ({
+      reviews: [...dataArray, ...state.reviews],
     })),
 
   increaseLike: (movieId, indexInFiltered) =>

@@ -22,7 +22,11 @@ export interface AllReviewProps {
 }
 
 export interface WriteReviewProps {
-  onSubmitReview: (data: ReviewData) => void;
+  onSubmitReview: (data: {
+    content: string;
+    rating: number;
+    movieId: number;
+  }) => void;
   movieId: string;
 }
 

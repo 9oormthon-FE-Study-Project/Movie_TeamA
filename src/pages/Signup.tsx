@@ -14,10 +14,9 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: SignupForm) => {
-    // 서버에 보낼 데이터 구조 맞춤
     const payload = {
       ...data,
-      gender: data.gender.toUpperCase(), // 서버는 "MALE"/"FEMALE" 형태로 받음
+      gender: data.gender.toUpperCase(),
     };
 
     try {
@@ -27,7 +26,6 @@ const Signup = () => {
         },
       });
 
-      // 성공 시 로그인 페이지로 이동
       console.log('회원가입 성공:', res.data);
       navigate('/login');
     } catch (error) {

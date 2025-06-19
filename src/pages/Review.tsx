@@ -9,16 +9,78 @@ import Nav from '../components/home/Nav';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMemo } from 'react';
+import axios from 'axios';
+import { ReviewDataWithLikes } from '../types/review';
+import useAuthStore from '../store/authStore';
 
 const Review = () => {
   const { movieId } = useParams();
   const reviews = useReviewStore((state) => state.reviews);
   const addReview = useReviewStore((state) => state.addReview);
+  const addReviews = useReviewStore((state) => state.addReviews);
+
   const increaseLike = useReviewStore((state) => state.increaseLike);
 
   const filteredReviews = useMemo(() => {
-    return reviews.filter((r) => r.movieId === movieId);
+    return reviews.filter((r) => String(r.movieId) === movieId);
   }, [reviews, movieId]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        if (!movieId) return;
+
+        const res = await axios.get<ReviewDataWithLikes[]>('/api/reviews', {
+          params: { movieId },
+        });
+
+        console.log('리뷰 응답:', res.data);
+
+        addReviews(res.data);
+      } catch (err) {
+        console.error('리뷰 불러오기 실패:', err);
+      }
+    };
+
+    fetchReviews();
+  }, [movieId]);
+
+  const handleSubmitReview = async (data: {
+    content: string;
+    rating: number;
+    movieId: number;
+  }) => {
+    try {
+      const username = useAuthStore.getState().username;
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        alert('로그인이 필요합니다.');
+        return;
+      }
+
+      const res = await axios.post<ReviewDataWithLikes>(
+        '/api/reviews',
+        {
+          username,
+          content: data.content,
+          rating: data.rating,
+          movieId: data.movieId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('리뷰 등록 성공:', res.data);
+      addReview(res.data);
+    } catch (error) {
+      console.error('리뷰 작성 실패:', error);
+    }
+  };
 
   return (
     <div className='bg-black text-white'>
@@ -26,7 +88,7 @@ const Review = () => {
       {movieId && <Poster movieId={movieId} />}
       <Plot movieId={movieId} />
       <StarAverage movieId={movieId} />
-      <WriteReview movieId={movieId!} onSubmitReview={addReview} />
+      <WriteReview movieId={movieId!} onSubmitReview={handleSubmitReview} />
       <BestReviewSlide
         reviews={filteredReviews}
         onLike={(idx) => increaseLike(movieId!, idx)}

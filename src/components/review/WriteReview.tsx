@@ -27,8 +27,9 @@ const WriteReview = ({ onSubmitReview, movieId }: WriteReviewProps) => {
     onSubmitReview({
       content: reviewInput.trim(),
       rating: selectedRating,
-      movieId,
+      movieId: Number(movieId),
     });
+
     setReviewInput('');
     setSelectedRating(0);
   };
