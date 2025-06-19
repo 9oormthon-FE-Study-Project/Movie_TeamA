@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { SignupForm } from '../types/signup';
 import Nav from '../components/home/Nav';
-// import axios from 'axios';
+import axios from 'axios';
 
 const Signup = () => {
   const {
@@ -14,16 +14,26 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: SignupForm) => {
-    // 서버 요청 부분 주석 처리
-    // try {
-    //   const res = await axios.post('/api/signup', data);
-    //   if (res.data.success) {
-    //     navigate('/login');
-    //   }
-    // } catch (e) {
-    //   alert('회원가입 실패');
-    // }
-    navigate('/login');
+    // 서버에 보낼 데이터 구조 맞춤
+    const payload = {
+      ...data,
+      gender: data.gender.toUpperCase(), // 서버는 "MALE"/"FEMALE" 형태로 받음
+    };
+
+    try {
+      const res = await axios.post('/api/auth/signup', payload, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // 성공 시 로그인 페이지로 이동
+      console.log('회원가입 성공:', res.data);
+      navigate('/login');
+    } catch (error) {
+      console.error('회원가입 실패:', error);
+      alert('회원가입에 실패했습니다.');
+    }
   };
 
   return (
