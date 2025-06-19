@@ -9,57 +9,73 @@ import WriteReview from '../components/review/WriteReview';
 import BestReviewSlide from '../components/review/BestReviewSlide';
 import AllReview from '../components/review/AllReview';
 import StarAverage from '../components/review/StarAverage';
+import AllReviewDropdown from '../components/review/AllReviewDropdown';
 
 import { useReviewStore } from '../store/reviewStore';
 import useAuthStore from '../store/authStore';
 import { ReviewDataWithLikes } from '../types/review';
 
 const Review = () => {
-  const { movieId } = useParams();
+  const { movieId } = useParams<{ movieId: string }>();
 
-  const reviews = useReviewStore((state) => state.reviews);
-  const addReview = useReviewStore((state) => state.addReview);
-  const addReviews = useReviewStore((state) => state.addReviews);
+  const reviews = useReviewStore((s) => s.reviews);
+  const addReview = useReviewStore((s) => s.addReview);
+  const addReviews = useReviewStore((s) => s.addReviews);
 
   const [likedReviewIds, setLikedReviewIds] = useState<number[]>([]);
+  const [sortOption, setSortOption] = useState<
+    '최신순' | '오래된순' | '인기순'
+  >('최신순');
 
-  const filteredReviews = useMemo(() => {
-    return reviews.filter((r) => String(r.movieId) === movieId);
-  }, [reviews, movieId]);
+  const filteredReviews = useMemo(
+    () => reviews.filter((r) => String(r.movieId) === movieId),
+    [reviews, movieId]
+  );
+
+  const sortedReviews = useMemo(() => {
+    const copy = [...filteredReviews];
+    if (sortOption === '인기순') {
+      return copy.sort((a, b) => b.likes - a.likes);
+    }
+    if (sortOption === '오래된순') {
+      return copy.sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+    }
+    return copy.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }, [filteredReviews, sortOption]);
 
   useEffect(() => {
     const fetchReviews = async () => {
+      if (!movieId) return;
       try {
-        if (!movieId) return;
-
         const res = await axios.get<ReviewDataWithLikes[]>('/api/reviews', {
           params: { movieId },
         });
-
-        console.log('리뷰 응답:', res.data);
         addReviews(res.data);
       } catch (err) {
         console.error('리뷰 불러오기 실패:', err);
       }
     };
-
     fetchReviews();
-  }, [movieId]);
+  }, [movieId, addReviews]);
 
   const handleSubmitReview = async (data: {
     content: string;
     rating: number;
     movieId: number | string;
   }) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
     try {
       const username = useAuthStore.getState().username;
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-        alert('로그인이 필요합니다.');
-        return;
-      }
-
       const res = await axios.post<ReviewDataWithLikes>(
         '/api/reviews',
         {
@@ -68,15 +84,8 @@ const Review = () => {
           rating: data.rating,
           movieId: Number(data.movieId),
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      console.log('리뷰 등록 성공:', res.data);
       addReview(res.data);
     } catch (error) {
       console.error('리뷰 작성 실패:', error);
@@ -84,36 +93,24 @@ const Review = () => {
   };
 
   const handleToggleLike = async (reviewId: number) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('로그인이 필요합니다.');
-        return;
-      }
-
       const isLiked = likedReviewIds.includes(reviewId);
       const url = isLiked
         ? `/api/reviews/${reviewId}/unlike`
         : `/api/reviews/${reviewId}/like`;
-
       const res = await axios.post<ReviewDataWithLikes>(
         url,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      const updatedReview = res.data;
-
       useReviewStore.setState((prev) => ({
-        reviews: prev.reviews.map((r) =>
-          r.id === updatedReview.id ? updatedReview : r
-        ),
+        reviews: prev.reviews.map((r) => (r.id === res.data.id ? res.data : r)),
       }));
-
       setLikedReviewIds((prev) =>
         isLiked ? prev.filter((id) => id !== reviewId) : [...prev, reviewId]
       );
@@ -126,9 +123,10 @@ const Review = () => {
     <div className='bg-black text-white'>
       <Nav />
       {movieId && <Poster movieId={movieId} />}
-      <Plot movieId={movieId} />
-      <StarAverage movieId={movieId} />
+      <Plot movieId={movieId!} />
+      <StarAverage movieId={movieId!} />
       <WriteReview movieId={movieId!} onSubmitReview={handleSubmitReview} />
+
       <BestReviewSlide
         reviews={filteredReviews}
         onLike={(idx) => {
@@ -136,17 +134,21 @@ const Review = () => {
           if (target) handleToggleLike(target.id);
         }}
       />
+
       <div className='mt-4 flex items-center justify-between px-4'>
-        <h1 className='z-10 mx-2 mb-5 text-xl font-bold'>전체 리뷰</h1>
+        <h1 className='text-xl font-bold'>전체 리뷰</h1>
+        <AllReviewDropdown onSelect={setSortOption} />
       </div>
+
       <div>
-        {filteredReviews.map((review) => (
+        {sortedReviews.map((review) => (
           <AllReview
             key={review.id}
             username={review.username}
             content={review.content}
             rating={review.rating}
             likes={review.likes}
+            createdAt={review.createdAt}
             onLike={() => handleToggleLike(review.id)}
           />
         ))}
