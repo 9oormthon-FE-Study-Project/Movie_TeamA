@@ -4,7 +4,7 @@ import { WriteReviewProps } from '../../types/review';
 import useAuthStore from '../../store/authStore';
 import { useNavigate } from 'react-router-dom';
 
-const WriteReview = ({ onSubmitReview }: WriteReviewProps) => {
+const WriteReview = ({ onSubmitReview, movieId }: WriteReviewProps) => {
   const [reviewInput, setReviewInput] = useState('');
   const [selectedRating, setSelectedRating] = useState(0);
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ const WriteReview = ({ onSubmitReview }: WriteReviewProps) => {
     onSubmitReview({
       content: reviewInput.trim(),
       rating: selectedRating,
+      movieId,
     });
     setReviewInput('');
     setSelectedRating(0);

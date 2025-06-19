@@ -7,6 +7,7 @@ export interface Review {
 export interface ReviewData {
   content: string;
   rating: number;
+  movieId: string;
 }
 
 export interface ReviewDataWithLikes extends ReviewData {
@@ -22,6 +23,7 @@ export interface AllReviewProps {
 
 export interface WriteReviewProps {
   onSubmitReview: (data: ReviewData) => void;
+  movieId: string;
 }
 
 export interface BestReviewSlideProps {
