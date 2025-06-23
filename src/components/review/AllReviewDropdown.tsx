@@ -1,16 +1,18 @@
 import { useState } from 'react';
+import { AllReviewDropdownProps } from '../../types/review';
 
-const AllReviewDropdown = () => {
+const AllReviewDropdown = ({ onSelect }: AllReviewDropdownProps) => {
+  const options = ['최신순', '오래된순', '인기순'] as const;
+
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>('정렬하기');
 
-  const options = ['최신순', '오래된순', '인기순', '평점높은순', '평점낮은순'];
+  const onToggle = () => setIsOpen((prev) => !prev);
 
-  const onToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const onOptionClicked = (value: string) => {
+  const onOptionClicked = (value: (typeof options)[number]) => {
+    setSelectedOption(value);
     setIsOpen(false);
+    onSelect(value);
   };
 
   return (
@@ -19,17 +21,17 @@ const AllReviewDropdown = () => {
         onClick={onToggle}
         className='rounded-full px-3 py-1 text-white transition'
       >
-        정렬하기
+        {selectedOption}
       </button>
 
       {isOpen && (
-        <div className='absolute right-0 z-20 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/10'>
+        <div className='absolute right-0 mt-1 mr-2 w-20 origin-top-right rounded-md bg-white shadow-lg ring-black/10'>
           <div className='py-1 text-sm text-gray-700'>
             {options.map((option) => (
               <button
                 key={option}
                 onClick={() => onOptionClicked(option)}
-                className='w-full px-4 py-2 text-left hover:bg-gray-100'
+                className='w-full px-3 py-2 text-left hover:bg-gray-100'
               >
                 {option}
               </button>
